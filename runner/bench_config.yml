@@ -1,5 +1,5 @@
 db: mongo
-dataset_name: "100k"
+dataset_name: "1M"
 repeats: 5
 concurrency: 8
 

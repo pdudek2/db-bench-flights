@@ -29,3 +29,33 @@ ts,db,dataset,scenario,repeat,elapsed_ms,notes
 2025-10-08T22:21:14.763585,mongo,100k,mongo_delete_many,3,1.65,deleted=0
 2025-10-08T22:21:14.765770,mongo,100k,mongo_delete_many,4,1.69,deleted=0
 2025-10-08T22:21:14.767816,mongo,100k,mongo_delete_many,5,1.46,deleted=0
+2025-10-08T22:57:48.041712,mongo,1M,mongo_read_by_carrier_day,1,12.15,found=1000
+2025-10-08T22:57:48.047309,mongo,1M,mongo_read_by_carrier_day,2,4.36,found=1000
+2025-10-08T22:57:48.052096,mongo,1M,mongo_read_by_carrier_day,3,3.81,found=1000
+2025-10-08T22:57:48.057026,mongo,1M,mongo_read_by_carrier_day,4,3.89,found=1000
+2025-10-08T22:57:48.061948,mongo,1M,mongo_read_by_carrier_day,5,3.85,found=1000
+2025-10-08T22:57:48.555846,mongo,1M,mongo_top_routes_month,1,492.76,rows=10
+2025-10-08T22:57:49.045844,mongo,1M,mongo_top_routes_month,2,488.85,rows=10
+2025-10-08T22:57:49.517922,mongo,1M,mongo_top_routes_month,3,470.81,rows=10
+2025-10-08T22:57:49.990602,mongo,1M,mongo_top_routes_month,4,471.52,rows=10
+2025-10-08T22:57:50.466152,mongo,1M,mongo_top_routes_month,5,474.47,rows=10
+2025-10-08T22:57:51.122490,mongo,1M,mongo_histogram_arr_delay,1,654.91,buckets=7
+2025-10-08T22:57:51.727623,mongo,1M,mongo_histogram_arr_delay,2,603.98,buckets=7
+2025-10-08T22:57:52.323980,mongo,1M,mongo_histogram_arr_delay,3,595.23,buckets=7
+2025-10-08T22:57:52.911376,mongo,1M,mongo_histogram_arr_delay,4,586.24,buckets=7
+2025-10-08T22:57:53.522381,mongo,1M,mongo_histogram_arr_delay,5,609.97,buckets=7
+2025-10-08T22:57:53.556107,mongo,1M,mongo_insert_batch,1,32.04,inserted=5000
+2025-10-08T22:57:53.584219,mongo,1M,mongo_insert_batch,2,26.53,inserted=5000
+2025-10-08T22:57:53.611673,mongo,1M,mongo_insert_batch,3,25.92,inserted=5000
+2025-10-08T22:57:53.640131,mongo,1M,mongo_insert_batch,4,26.84,inserted=5000
+2025-10-08T22:57:53.667159,mongo,1M,mongo_insert_batch,5,25.44,inserted=5000
+2025-10-08T22:57:54.062794,mongo,1M,mongo_update_many,1,394.52,"matched=25000, modified=25000"
+2025-10-08T22:57:54.436238,mongo,1M,mongo_update_many,2,372.41,"matched=25000, modified=25000"
+2025-10-08T22:57:54.837274,mongo,1M,mongo_update_many,3,399.67,"matched=25000, modified=25000"
+2025-10-08T22:57:55.217557,mongo,1M,mongo_update_many,4,379.07,"matched=25000, modified=25000"
+2025-10-08T22:57:55.588231,mongo,1M,mongo_update_many,5,369.43,"matched=25000, modified=25000"
+2025-10-08T22:57:55.936818,mongo,1M,mongo_delete_many,1,347.4,deleted=25000
+2025-10-08T22:57:56.158266,mongo,1M,mongo_delete_many,2,220.45,deleted=0
+2025-10-08T22:57:56.389291,mongo,1M,mongo_delete_many,3,230.0,deleted=0
+2025-10-08T22:57:56.615859,mongo,1M,mongo_delete_many,4,225.39,deleted=0
+2025-10-08T22:57:56.865847,mongo,1M,mongo_delete_many,5,248.67,deleted=0
