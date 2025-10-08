@@ -1,0 +1,97 @@
+services:
+  postgres:
+    image: ${POSTGRES_IMAGE}
+    container_name: dbbench-postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: flights
+    ports: [ "${POSTGRES_PORT}:5432" ]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    deploy:
+      resources: { limits: { cpus: "${DB_CPUS}", memory: "${DB_MEM}" } }
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d flights"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  mysql:
+    image: ${MYSQL_IMAGE}
+    container_name: dbbench-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: flights
+    ports: [ "${MYSQL_PORT}:3306" ]
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+    deploy:
+      resources: { limits: { cpus: "${DB_CPUS}", memory: "${DB_MEM}" } }
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--password=root"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  mongodb:
+    image: ${MONGO_IMAGE}
+    container_name: dbbench-mongo
+    ports: [ "${MONGO_PORT}:27017" ]
+    volumes:
+      - mongodata:/data/db
+      - mongoconfig:/data/configdb
+      - ./docker/mongo/init:/docker-entrypoint-initdb.d:ro
+      - ./data:/imports:ro
+    deploy:
+      resources: { limits: { cpus: "${DB_CPUS}", memory: "${DB_MEM}" } }
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  cassandra:
+    image: ${CASSANDRA_IMAGE}
+    container_name: dbbench-cassandra
+    environment:
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=512M
+      - JVM_OPTS=-Dcassandra.skip_wait_for_gossip_to_settle=0
+    ports: [ "${CASSANDRA_PORT}:9042" ]
+    volumes:
+      - cassdata:/var/lib/cassandra
+      - ./docker/cassandra/init:/docker-entrypoint-initdb.d:ro
+      - ./data:/imports:ro
+    deploy:
+      resources: { limits: { cpus: "${DB_CPUS}", memory: "${DB_MEM}" } }
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'SHOW VERSION' 127.0.0.1 9042 || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+
+  runner:
+    image: python:3.11-slim
+    container_name: dbbench-runner
+    working_dir: /app
+    volumes:
+      - ./runner:/app
+      - ./data:/data:ro
+    depends_on:
+      postgres: { condition: service_healthy }
+      mysql: { condition: service_healthy }
+      mongodb: { condition: service_healthy }
+      cassandra: { condition: service_healthy }
+    command: ["bash", "-lc", "sleep infinity"]
+    deploy:
+      resources: { limits: { cpus: "1.5", memory: "1g" } }
+
+volumes:
+  pgdata:
+  mysqldata:
+  mongodata:
+  mongoconfig:
+  cassdata:

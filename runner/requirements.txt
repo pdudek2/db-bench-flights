@@ -1,0 +1,8 @@
+pymongo==4.7.3
+cassandra-driver==3.29.0
+psycopg2-binary==2.9.9
+mysqlclient==2.2.4
+pandas==2.2.2
+numpy==2.0.2
+pyyaml==6.0.2
+tqdm==4.66.4

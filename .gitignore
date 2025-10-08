@@ -1,0 +1,10 @@
+.DS_Store
+.venv/
+__pycache__/
+
+**/data/**
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+.vscode/
+.idea/
