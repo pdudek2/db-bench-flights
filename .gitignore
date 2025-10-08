@@ -1,10 +1,9 @@
-.DS_Store
-.venv/
-__pycache__/
-
-**/data/**
-!data/raw/.gitkeep
+# dane lokalne
+data/raw/*
+data/processed/*
 !data/processed/.gitkeep
 
-.vscode/
-.idea/
+# systemowe
+.DS_Store
+__pycache__/
+*.pyc

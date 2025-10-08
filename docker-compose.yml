@@ -80,6 +80,7 @@ services:
     volumes:
       - ./runner:/app
       - ./data:/data:ro
+      - ./data:/data
     depends_on:
       postgres: { condition: service_healthy }
       mysql: { condition: service_healthy }
