@@ -184,10 +184,9 @@ def s_cass_top_routes_month(cfg):
 def s_cass_histogram_arr_delay(cfg):
     s = cass_client()
     bins = cfg["queries"]["histogram_arr_delay"]["bins"]
-    # pełny skan; bez IS NOT NULL i bez ALLOW FILTERING
     stmt = SimpleStatement("SELECT arr_delay FROM flights")
     t0 = time.perf_counter()
-    counts = [0] * (len(bins))  # ostatni kubełek = "other"
+    counts = [0] * (len(bins))  
     for row in s.execute(stmt):
         v = row.arr_delay
         if v is None:
@@ -207,12 +206,10 @@ def s_cass_histogram_arr_delay(cfg):
 def s_cass_histogram_arr_delay_month(cfg):
     s = cass_client()
     bins = cfg["queries"]["histogram_arr_delay"]["bins"]
-    # zawężamy do miesiąca jak w top_routes_month
     month = cfg["queries"]["top_routes_month"]["month"]
     y, m = map(int, month.split("-"))
     start = f"{y}-{m:02d}-01"
     end   = f"{y+1}-01-01" if m == 12 else f"{y}-{m+1:02d}-01"
-    # Cass wymaga ALLOW FILTERING dla zakresu po fl_date (u Ciebie fl_date jest TEXT)
     stmt = SimpleStatement(
         "SELECT arr_delay FROM flights WHERE fl_date >= %s AND fl_date < %s ALLOW FILTERING"
     )

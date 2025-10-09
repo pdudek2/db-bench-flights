@@ -1,9 +1,7 @@
-# runner/bench_config.yml
-db: cassandra                 # wybór silnika: cassandra | mongo
+db: cassandra                 
 dataset_name: "100k"
 repeats: 5
 
-# zapytania dopasowane do Twojego datasetu (B6, styczeń 2024)
 queries:
   read_by_carrier_day:
     carrier: "B6"
@@ -12,11 +10,10 @@ queries:
     limit: 1000
 
   top_routes_month:
-    month: "2024-01"          # działa, bo fl_date masz jako text 'YYYY-MM-DD'
+    month: "2024-01"      
 
   histogram_arr_delay:
     bins: [-60,-30,-15,0,15,30,60,120,10000]
 
-# CRUD zostawiamy (nieużywane w Cassandrze, ale plik jest uniwersalny)
 crud:
   sample_size_for_writes: 5000
