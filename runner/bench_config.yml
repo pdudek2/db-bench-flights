@@ -1,20 +1,22 @@
-db: mongo
-dataset_name: "1M"
+# runner/bench_config.yml
+db: cassandra                 # wybór silnika: cassandra | mongo
+dataset_name: "100k"
 repeats: 5
-concurrency: 8
 
+# zapytania dopasowane do Twojego datasetu (B6, styczeń 2024)
 queries:
   read_by_carrier_day:
-    carrier: "AA"            # <- PODMIEŃ na realnego przewoźnika
-    date_from: "2024-01-01"  # <- PODMIEŃ na realny zakres (string fl_date)
-    date_to:   "2024-01-31"
+    carrier: "B6"
+    date_from: "2024-01-01"
+    date_to:   "2024-01-07"
     limit: 1000
 
   top_routes_month:
-    month: "2024-01"         # regex "YYYY-MM" zadziała na fl_date jako string
+    month: "2024-01"          # działa, bo fl_date masz jako text 'YYYY-MM-DD'
 
   histogram_arr_delay:
-    bins: [0,5,15,30,60,120,10000]
+    bins: [-60,-30,-15,0,15,30,60,120,10000]
 
+# CRUD zostawiamy (nieużywane w Cassandrze, ale plik jest uniwersalny)
 crud:
   sample_size_for_writes: 5000

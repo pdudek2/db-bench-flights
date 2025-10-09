@@ -59,3 +59,48 @@ ts,db,dataset,scenario,repeat,elapsed_ms,notes
 2025-10-08T22:57:56.389291,mongo,1M,mongo_delete_many,3,230.0,deleted=0
 2025-10-08T22:57:56.615859,mongo,1M,mongo_delete_many,4,225.39,deleted=0
 2025-10-08T22:57:56.865847,mongo,1M,mongo_delete_many,5,248.67,deleted=0
+2025-10-09T10:25:08.649760,cassandra,100k,cass_read_by_carrier_day,1,14.18,found=1000
+2025-10-09T10:25:08.673014,cassandra,100k,cass_read_by_carrier_day,2,7.58,found=1000
+2025-10-09T10:25:08.693433,cassandra,100k,cass_read_by_carrier_day,3,7.86,found=1000
+2025-10-09T10:25:08.716260,cassandra,100k,cass_read_by_carrier_day,4,8.84,found=1000
+2025-10-09T10:25:08.741719,cassandra,100k,cass_read_by_carrier_day,5,8.31,found=1000
+2025-10-09T10:25:09.362115,cassandra,100k,cass_top_routes_month,1,604.52,rows=10 scanned=99530
+2025-10-09T10:25:09.799005,cassandra,100k,cass_top_routes_month,2,422.4,rows=10 scanned=99530
+2025-10-09T10:25:10.228222,cassandra,100k,cass_top_routes_month,3,414.56,rows=10 scanned=99530
+2025-10-09T10:25:10.666063,cassandra,100k,cass_top_routes_month,4,422.26,rows=10 scanned=99530
+2025-10-09T10:25:11.100022,cassandra,100k,cass_top_routes_month,5,419.26,rows=10 scanned=99530
+2025-10-09T10:33:40.505049,cassandra,100k,cass_read_by_carrier_day,1,9.65,found=1000
+2025-10-09T10:33:40.530136,cassandra,100k,cass_read_by_carrier_day,2,10.6,found=1000
+2025-10-09T10:33:40.552930,cassandra,100k,cass_read_by_carrier_day,3,8.56,found=1000
+2025-10-09T10:33:40.575704,cassandra,100k,cass_read_by_carrier_day,4,7.2,found=1000
+2025-10-09T10:33:40.601889,cassandra,100k,cass_read_by_carrier_day,5,7.45,found=1000
+2025-10-09T10:33:41.168849,cassandra,100k,cass_top_routes_month,1,552.41,rows=10 scanned=99530
+2025-10-09T10:33:41.598904,cassandra,100k,cass_top_routes_month,2,417.36,rows=10 scanned=99530
+2025-10-09T10:33:42.023944,cassandra,100k,cass_top_routes_month,3,409.43,rows=10 scanned=99530
+2025-10-09T10:33:42.452978,cassandra,100k,cass_top_routes_month,4,415.49,rows=10 scanned=99530
+2025-10-09T10:33:42.881967,cassandra,100k,cass_top_routes_month,5,414.48,rows=10 scanned=99530
+2025-10-09T10:33:43.238591,cassandra,100k,cass_histogram_arr_delay,1,342.34,buckets=9
+2025-10-09T10:33:43.599675,cassandra,100k,cass_histogram_arr_delay,2,347.47,buckets=9
+2025-10-09T10:33:43.959633,cassandra,100k,cass_histogram_arr_delay,3,345.32,buckets=9
+2025-10-09T10:33:44.325906,cassandra,100k,cass_histogram_arr_delay,4,352.55,buckets=9
+2025-10-09T10:33:44.738627,cassandra,100k,cass_histogram_arr_delay,5,397.23,buckets=9
+2025-10-09T10:47:19.647555,cassandra,100k,cass_read_by_carrier_day,1,8.79,found=1000
+2025-10-09T10:47:19.668923,cassandra,100k,cass_read_by_carrier_day,2,7.31,found=1000
+2025-10-09T10:47:19.689864,cassandra,100k,cass_read_by_carrier_day,3,7.33,found=1000
+2025-10-09T10:47:19.708968,cassandra,100k,cass_read_by_carrier_day,4,7.38,found=1000
+2025-10-09T10:47:19.738163,cassandra,100k,cass_read_by_carrier_day,5,8.4,found=1000
+2025-10-09T10:47:20.329102,cassandra,100k,cass_top_routes_month,1,577.39,rows=10 scanned=99530
+2025-10-09T10:47:20.772888,cassandra,100k,cass_top_routes_month,2,430.37,rows=10 scanned=99530
+2025-10-09T10:47:21.209865,cassandra,100k,cass_top_routes_month,3,423.49,rows=10 scanned=99530
+2025-10-09T10:47:21.647822,cassandra,100k,cass_top_routes_month,4,425.54,rows=10 scanned=99530
+2025-10-09T10:47:22.092762,cassandra,100k,cass_top_routes_month,5,431.44,rows=10 scanned=99530
+2025-10-09T10:47:22.460453,cassandra,100k,cass_histogram_arr_delay,1,354.41,buckets=9
+2025-10-09T10:47:22.829504,cassandra,100k,cass_histogram_arr_delay,2,354.12,buckets=9
+2025-10-09T10:47:23.199471,cassandra,100k,cass_histogram_arr_delay,3,356.39,buckets=9
+2025-10-09T10:47:23.560648,cassandra,100k,cass_histogram_arr_delay,4,348.53,buckets=9
+2025-10-09T10:47:23.930443,cassandra,100k,cass_histogram_arr_delay,5,356.33,buckets=9
+2025-10-09T10:47:24.351385,cassandra,100k,cass_histogram_arr_delay_month,1,408.23,buckets=9
+2025-10-09T10:47:24.770481,cassandra,100k,cass_histogram_arr_delay_month,2,405.38,buckets=9
+2025-10-09T10:47:25.198421,cassandra,100k,cass_histogram_arr_delay_month,3,414.35,buckets=9
+2025-10-09T10:47:25.608392,cassandra,100k,cass_histogram_arr_delay_month,4,396.29,buckets=9
+2025-10-09T10:47:26.021357,cassandra,100k,cass_histogram_arr_delay_month,5,398.22,buckets=9
