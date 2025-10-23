@@ -1,0 +1,30 @@
+Flow dla każdej z bazy danych:
+- uruchomienie kontenera
+- import 1 000, testy
+- czyszczenie bazki
+- import 100 000, testy
+- czyszczenie bazki
+- import całego pliku csv, test
+- usuniecie całego kontenera
+
+
+- dla każdej z bazek osobny plik z wynikami
+- po przeprowadzeniu testów wszystkich SZBD wygenerowanie wykresów dla poszczególnych operacji
+
+
+Planowane operacje:
+Delete: (myślę że nie musimy robić więcej operacji tego typu, z punktu widzenia biznesowego nie powinniśmy usuwać rekordów, ewentualnie oznaczyć lot jako cancelled)
+- usunięcie 1 rekordu przez numer lot
+Create:
+- Dodanie pojedynczego lotu
+- Dodanie wielu lotów na danej trasie(na przykład lot z A do B we wtorek i czwartek)
+- Dodanie nowej lini lotniczej/lotniska
+Update:
+- dodanie statystyk o locie do pojedynczego lotu(informacje o opóźnieniu itp)
+- Oznaczenie lotów w danym zakresie dat z danego lotniska jako anulowane
+Read:
+- Ranking tras
+- Histogram opóźnień
+- Wyszukanie wszystkich lotów z punktu A do B w danym zakresie dat
+- Pojedynczy lot wraz z jego statystykami o opóźnieniu
+- Ranking najbardziej punktualnych lini lotniczych (do ustalenia kryteria)
