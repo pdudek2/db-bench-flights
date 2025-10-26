@@ -1,0 +1,64 @@
+# DRY Benchmark Configuration for Multiple Databases
+# This configuration uses YAML anchors to avoid duplication across databases
+
+# Common scenario configuration shared by all databases
+common_scenario: &common_scenario
+  dataset_name: "100k"
+  repeats: 5
+  
+  queries:
+    read_by_carrier_day:
+      carrier: "B6"
+      date_from: "2024-01-01"
+      date_to: "2024-01-07"
+      limit: 1000
+    
+    top_routes_month:
+      month: "2024-01"
+    
+    histogram_arr_delay:
+      bins: [-60, -30, -15, 0, 15, 30, 60, 120, 10000]
+  
+  crud:
+    sample_size_for_writes: 5000
+
+# Database-specific configurations
+# Each database inherits the common scenario and adds its own connection details
+
+databases:
+  mongo:
+    <<: *common_scenario
+    db: mongo
+    connection:
+      host: mongodb
+      port: 27017
+      database: flightsdb
+      collection: flights
+  
+  cassandra:
+    <<: *common_scenario
+    db: cassandra
+    connection:
+      host: cassandra
+      port: 9042
+      keyspace: flightsks
+  
+  postgres:
+    <<: *common_scenario
+    db: postgres
+    connection:
+      host: postgres
+      port: 5432
+      database: flights
+      user: flights_user
+      password: flights_pass
+  
+  mysql:
+    <<: *common_scenario
+    db: mysql
+    connection:
+      host: mysql
+      port: 3306
+      database: flights
+      user: flights_user
+      password: flights_pass
