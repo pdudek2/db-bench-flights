@@ -103,3 +103,14 @@ ALTER TABLE flights_delayed
 
 ALTER TABLE flights_cancelled
     ADD FOREIGN KEY (flight_id) REFERENCES flights (flight_id);
+
+CREATE INDEX idx_flights_carrier_time ON flights (op_unique_carrier, year, month) USING BTREE;
+CREATE INDEX idx_flights_origin ON flights (origin) USING BTREE;
+CREATE INDEX idx_flights_dest ON flights (dest) USING BTREE;
+CREATE INDEX idx_flights_route_date ON flights (origin, dest, fl_date) USING BTREE;
+
+CREATE INDEX idx_airport_city_name ON airport (city_name) USING BTREE;
+
+CREATE INDEX idx_perf_arr_delay ON flights_performance (arr_delay) USING BTREE;
+
+CREATE INDEX idx_cancelled_code ON flights_cancelled (cancellation_code) USING BTREE;

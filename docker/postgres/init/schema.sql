@@ -103,3 +103,14 @@ ALTER TABLE flight_status
 
 ALTER TABLE flight_status
     ADD CONSTRAINT fk_status_cancel FOREIGN KEY (cancellation_id) REFERENCES flights_cancelled (flight_id);
+
+CREATE INDEX idx_flights_carrier_time ON flights (op_unique_carrier, year, month);
+CREATE INDEX idx_flights_origin ON flights (origin);
+CREATE INDEX idx_flights_dest ON flights (dest);
+CREATE INDEX idx_flights_route_date ON flights (origin, dest, fl_date);
+
+CREATE INDEX idx_airport_city_name ON airport (city_name);
+
+CREATE INDEX idx_perf_arr_delay ON flights_performance (arr_delay);
+
+CREATE INDEX idx_cancelled_code ON flights_cancelled (cancellation_code);
