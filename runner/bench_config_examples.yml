@@ -1,0 +1,52 @@
+# Example: Custom Benchmark Configuration
+# This shows how to customize the common scenario for different testing needs
+
+# Example 1: Heavy load testing with larger dataset
+common_scenario_heavy: &common_scenario_heavy
+  dataset_name: "1M"
+  repeats: 10
+  
+  queries:
+    read_by_carrier_day:
+      carrier: "AA"
+      date_from: "2024-01-01"
+      date_to: "2024-01-31"
+      limit: 10000
+    
+    top_routes_month:
+      month: "2024-01"
+    
+    histogram_arr_delay:
+      bins: [-120, -60, -30, -15, 0, 15, 30, 60, 120, 240, 10000]
+  
+  crud:
+    sample_size_for_writes: 10000
+
+# Example 2: Quick smoke test with minimal data
+common_scenario_smoke: &common_scenario_smoke
+  dataset_name: "1k"
+  repeats: 2
+  
+  queries:
+    read_by_carrier_day:
+      carrier: "B6"
+      date_from: "2024-01-01"
+      date_to: "2024-01-02"
+      limit: 100
+    
+    top_routes_month:
+      month: "2024-01"
+    
+    histogram_arr_delay:
+      bins: [-60, -30, 0, 30, 60, 10000]
+  
+  crud:
+    sample_size_for_writes: 100
+
+# You can create different configuration files for different scenarios:
+# - bench_config_multi_heavy.yml (using common_scenario_heavy)
+# - bench_config_multi_smoke.yml (using common_scenario_smoke)
+# - bench_config_multi_production.yml (with production-like settings)
+
+# Then run with:
+# CONFIG=bench_config_multi_heavy.yml ./run_benchmarks.sh
