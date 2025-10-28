@@ -1,12 +1,13 @@
 import argparse, pandas as pd
 from pathlib import Path
+
 def make_samples(src, out, sizes=(10_000, 100_000, 1_000_000)):
     out = Path(out); out.mkdir(parents=True, exist_ok=True)
-    frames, total = [], 0
-    for chunk in pd.read_csv(src, chunksize=200_000):
-        frames.append(chunk); total += len(chunk)
-        if total >= max(sizes): break
+    frames = []
+    for chunk in pd.read_csv(src, chunksize=200_000, low_memory=False):
+        frames.append(chunk)
     df = pd.concat(frames, ignore_index=True)
+    df = df.sample(frac=1).reset_index(drop=True)
     for n in sizes:
         if len(df) >= n:
             p = out / f"flights_{n}.csv"
