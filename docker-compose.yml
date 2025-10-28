@@ -79,6 +79,11 @@ services:
     image: python:3.11-slim
     container_name: dbbench-runner
     working_dir: /app
+    env_file:
+      - .env
+    environment:
+      - MYSQL_HOST=mysql
+      - POSTGRES_HOST=postgres
     volumes:
       - ./runner:/app
       - ./data:/data:ro

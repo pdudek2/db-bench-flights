@@ -99,7 +99,7 @@ ALTER TABLE flights_performance
     ADD FOREIGN KEY (delay_id) REFERENCES flights_delayed (flight_id);
 
 ALTER TABLE flights_delayed
-    ADD FOREIGN KEY (flight_id) REFERENCES flights_performance (flight_id);
+    ADD FOREIGN KEY (flight_id) REFERENCES flights (flight_id);
 
 ALTER TABLE flights_cancelled
     ADD FOREIGN KEY (flight_id) REFERENCES flights (flight_id);

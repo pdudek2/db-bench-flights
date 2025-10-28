@@ -4,6 +4,7 @@ from pathlib import Path
 
 from bench_cassandra import run_cassandra
 from bench_mongo import run_mongo
+from bench_mysql import run_mysql
 
 RESULTS_PATH = Path("/app/results/results.csv")
 
@@ -25,5 +26,7 @@ if __name__ == "__main__":
         run_mongo(cfg)
     elif db == "cassandra":
         run_cassandra(cfg)
+    elif db == "mysql":
+        run_mysql(cfg)
     else:
         raise SystemExit(f"Unknown db in bench_config.yml: {db}")
