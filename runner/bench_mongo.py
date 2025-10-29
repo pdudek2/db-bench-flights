@@ -19,6 +19,8 @@ def s_mongo_read_by_carrier_day(cfg):
     return dt, f"found={len(docs)}"
 
 def s_mongo_top_routes_month(cfg):
+    # TODO może lepiej top 10 najczęstszych tras (bez opóźnień)?
+    # gdy bazujemy na opóźnieniach to prawdopodobnie wygra kilka tras z małą liczbą lotów
     c = mongo_client(); col = c["flightsdb"]["flights"]
     month = cfg["queries"]["top_routes_month"]["month"]
     y, m = map(int, month.split("-"))

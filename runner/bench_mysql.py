@@ -57,9 +57,9 @@ def s_mysql_add_flight(cfg, iteration: int):
             int(flight.get("crs_elapsed_time", 0)),
             int(flight.get("distance", 0))
     ]
-    t0 = time.perf_counter()
     conn = mysql_conn()
     cur = conn.cursor()
+    t0 = time.perf_counter()
     try:
         cur.execute(insert_sql, vals)
         conn.commit()
@@ -77,8 +77,8 @@ def s_mysql_add_flight_stats(cfg, iteration: int):
     delayed_list = cfg["queries"]["update_flight"].get("flights_delayed", [])
     delayed_entry = next((d for d in delayed_list if d.get("flight_index") == (iteration - 1)), None)
 
-    t0 = time.perf_counter()
     conn = mysql_conn(); cur = conn.cursor()
+    t0 = time.perf_counter()
     try:
         inserted_delayed = 0
         if delayed_entry:
@@ -112,7 +112,7 @@ def s_mysql_add_flight_stats(cfg, iteration: int):
                     int(perf.get("actual_elapsed_time", 0)),
                     int(perf.get("air_time", 0)),
                     bool(perf.get("diverted", False)),
-                    int(flight_id),  # delay_id -> flights_delayed.flight_id
+                    int(flight_id),
                 )
             )
         else:
@@ -146,13 +146,117 @@ def s_mysql_add_flight_stats(cfg, iteration: int):
         cur.close(); conn.close()
 
 def s_mysql_top_routes_month(cfg, iteration: int):
-    raise NotImplemented
+    month = iteration
+    limit = int(cfg["queries"]["top_routes_month"]["limit"])
+
+    conn = mysql_conn()
+    cur = conn.cursor()
+    try:
+        sql = (
+            "SELECT f.origin, f.dest, COUNT(*) AS flights_count "
+            "FROM flights f "
+            "WHERE f.month = %s "
+            "GROUP BY f.origin, f.dest "
+            "ORDER BY flights_count DESC "
+            "LIMIT %s"
+        )
+        t0 = time.perf_counter()
+        cur.execute(sql, (month, limit))
+        rows = cur.fetchall()
+        print(rows)
+        conn.commit()
+
+        dt = (time.perf_counter() - t0) * 1000
+
+        entries = []
+        for origin, dest, count in rows:
+            entries.append(f"{origin}-{dest}({count})")
+
+        note = ";".join(entries) if entries else "no_results"
+        return dt, note
+    finally:
+        cur.close()
+        conn.close()
 
 def s_mysql_histogram_arr_delay(cfg, iteration: int):
-    raise NotImplemented
+    bins = cfg.get("queries", {}).get("histogram_arr_delay", {}).get("bins", [])
+    try:
+        bins = [int(b) for b in bins]
+    except Exception:
+        return 0.0, "invalid_bins"
+
+    if len(bins) < 2:
+        return 0.0, "buckets=0"
+
+    parts = []
+    params = []
+    for i in range(len(bins) - 1):
+        a = bins[i]; b = bins[i + 1]
+        parts.append(f"SUM(CASE WHEN p.arr_delay >= %s AND p.arr_delay < %s THEN 1 ELSE 0 END) AS b{i}")
+        params.extend([a, b])
+
+    parts.append("SUM(CASE WHEN p.arr_delay < %s OR p.arr_delay >= %s OR p.arr_delay IS NULL THEN 1 ELSE 0 END) AS other")
+    params.extend([bins[0], bins[-1]])
+
+    sql = "SELECT " + ", ".join(parts) + " FROM flights_performance p"
+
+    conn = mysql_conn()
+    cur = conn.cursor()
+    t0 = time.perf_counter()
+    try:
+        cur.execute(sql, tuple(params))
+        row = cur.fetchone()
+        conn.commit()
+        dt = (time.perf_counter() - t0) * 1000
+
+        print(row)
+        num_buckets = len(bins)
+        return dt, f"buckets={num_buckets}"
+    finally:
+        cur.close()
+        conn.close()
 
 def s_mysql_find_flights_route_range_with_stats(cfg, iteration: int):
-    raise NotImplemented
+    # TODO adjust bench_config to have more rows as a result (adjust numuber of batches and/or use most popular routes)
+    idx = iteration - 1
+    route = cfg["queries"]["find_all_flights_on_route"]["routes"][idx]
+    origin = route.get("origin")
+    dest = route.get("dest")
+    date_from = route.get("date_from")
+    date_to = route.get("date_to")
+    limit = int(cfg.get("queries", {}).get("find_all_flights_on_route", {}).get("limit", 1000))
+
+    sql = (
+        "SELECT f.flight_id, f.fl_date, f.op_unique_carrier, f.op_carrier_fl_num, f.origin, f.dest, "
+        "p.dep_time, p.dep_delay, p.arr_time, p.arr_delay, p.actual_elapsed_time, p.air_time, p.diverted, "
+        "d.carrier_delay, d.weather_delay, d.nas_delay, d.security_delay, d.late_aircraft_delay, "
+        "c.cancellation_code "
+        "FROM flights f "
+        "LEFT JOIN flights_performance p ON f.flight_id = p.flight_id "
+        "LEFT JOIN flights_delayed d ON p.delay_id = d.flight_id "
+        "LEFT JOIN flights_cancelled c ON f.flight_id = c.flight_id "
+        "WHERE f.origin = %s AND f.dest = %s AND f.fl_date BETWEEN %s AND %s "
+        "LIMIT %s"
+    )
+
+    conn = mysql_conn()
+    cur = conn.cursor()
+    t0 = time.perf_counter()
+    try:
+        cur.execute(sql, (origin, dest, date_from, date_to, limit))
+        rows = cur.fetchall()
+        conn.commit()
+        dt = (time.perf_counter() - t0) * 1000
+
+        count = len(rows)
+        samples = ",".join(str(r[0]) for r in rows[:3]) if count else ""
+        note = f"count={count}"
+        if samples:
+            note += f" samples={samples}"
+        return dt, note
+    finally:
+        cur.close()
+        conn.close()
 
 def s_mysql_get_flight_with_stats(cfg, iteration: int):
     raise NotImplemented
@@ -162,10 +266,10 @@ def s_mysql_rank_punctual_airlines(cfg, iteration: int):
 
 SCENARIOS_MYSQL = [
     ("mysql_add_flight", s_mysql_add_flight),
-    ("mysql_add_flight_stats", s_mysql_add_flight_stats)
-    # ("mysql_top_routes_month", s_mysql_top_routes_month),
-    # ("mysql_histogram_arr_delay", s_mysql_histogram_arr_delay),
-    # ("mysql_find_route_with_stats", s_mysql_find_flights_route_range_with_stats),
+    ("mysql_add_flight_stats", s_mysql_add_flight_stats),
+    ("mysql_top_routes_month", s_mysql_top_routes_month),
+    ("mysql_histogram_arr_delay", s_mysql_histogram_arr_delay),
+    ("mysql_find_route_with_stats", s_mysql_find_flights_route_range_with_stats),
     # ("mysql_get_flight_with_stats", s_mysql_get_flight_with_stats),
     # ("mysql_rank_punctual_airlines", s_mysql_rank_punctual_airlines),
 ]
