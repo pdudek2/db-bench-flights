@@ -249,10 +249,7 @@ def s_mysql_find_flights_route_range_with_stats(cfg, iteration: int):
         dt = (time.perf_counter() - t0) * 1000
 
         count = len(rows)
-        samples = ",".join(str(r[0]) for r in rows[:3]) if count else ""
         note = f"count={count}"
-        if samples:
-            note += f" samples={samples}"
         return dt, note
     finally:
         cur.close()
@@ -262,7 +259,39 @@ def s_mysql_get_flight_with_stats(cfg, iteration: int):
     raise NotImplemented
 
 def s_mysql_rank_punctual_airlines(cfg, iteration: int):
-    raise NotImplemented
+    limit = int(cfg["queries"]["airlines_ranking"]["limit"])
+    cancellation_weight = float(cfg["queries"]["airlines_ranking"]["cancellation_weight"])
+    ranking_for_month = iteration
+
+    sql = (
+        "SELECT f.op_unique_carrier AS carrier, "
+        "       AVG(p.arr_delay) AS avg_arr_delay, "
+        "       SUM(CASE WHEN c.flight_id IS NOT NULL THEN 1 ELSE 0 END) AS cancelled_count, "
+        "       COUNT(f.flight_id) AS total_flights, "
+        "       (COALESCE(AVG(p.arr_delay), 0) + (SUM(CASE WHEN c.flight_id IS NOT NULL THEN 1 ELSE 0 END) * %s / GREATEST(COUNT(f.flight_id),1)) * 100) AS score "
+        "FROM flights f "
+        "LEFT JOIN flights_performance p ON f.flight_id = p.flight_id "
+        "LEFT JOIN flights_cancelled c ON f.flight_id = c.flight_id "
+        "WHERE f.month = %s "
+        "GROUP BY f.op_unique_carrier "
+        "HAVING COUNT(f.flight_id) > 0 "
+        "ORDER BY score ASC "
+        "LIMIT %s"
+    )
+
+    conn = mysql_conn()
+    cur = conn.cursor()
+    t0 = time.perf_counter()
+    try:
+        cur.execute(sql, (cancellation_weight, ranking_for_month, limit,))
+        rows = cur.fetchall()
+        conn.commit()
+        dt = (time.perf_counter() - t0) * 1000
+        note = "month=" + str(ranking_for_month) + ", " + "most_punctual=" + rows[0][0] if rows else "no_results"
+        return dt, note
+    finally:
+        cur.close()
+        conn.close()
 
 SCENARIOS_MYSQL = [
     ("mysql_add_flight", s_mysql_add_flight),
@@ -271,7 +300,7 @@ SCENARIOS_MYSQL = [
     ("mysql_histogram_arr_delay", s_mysql_histogram_arr_delay),
     ("mysql_find_route_with_stats", s_mysql_find_flights_route_range_with_stats),
     # ("mysql_get_flight_with_stats", s_mysql_get_flight_with_stats),
-    # ("mysql_rank_punctual_airlines", s_mysql_rank_punctual_airlines),
+    ("mysql_rank_punctual_airlines", s_mysql_rank_punctual_airlines),
 ]
 
 def run_mysql(cfg):

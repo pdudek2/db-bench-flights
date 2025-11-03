@@ -428,3 +428,6 @@ queries:
         dest: "BNA"
         date_from: "2024-12-20 06:00:00"
         date_to:   "2024-12-27 23:59:59"
+  airlines_ranking:
+    limit: 30
+    cancellation_weight: 5.0 # Weight factor for cancellations in the ranking calculation, 10.0 means that each cancellation counts as 10 minutes average delay
