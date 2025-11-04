@@ -1,42 +1,42 @@
 import os
 import time
-from mysql.connector.pooling import MySQLConnectionPool
-
+from psycopg2 import pool
 from bench_common import log_result
 
 _POOL = None
 
-
-def mysql_conn():
+def postgres_conn():
     global _POOL
     if _POOL is None:
-        _POOL = MySQLConnectionPool(
-            pool_name="bench_pool",
-            pool_size=int(os.getenv("MYSQL_POOL_SIZE", 5)),
-            host=os.getenv('MYSQL_HOST', "localhost"),
-            port=int(os.getenv('MYSQL_PORT', 3306)),
-            user=os.getenv('MYSQL_USER'),
-            password=os.getenv('MYSQL_PASSWORD'),
-            database=os.getenv('MYSQL_DATABASE'),
-            autocommit=False
+        _POOL = pool.ThreadedConnectionPool(
+            1,
+            int(os.getenv("PG_POOL_SIZE", 5)),
+            host=os.getenv("POSTGRES_HOST", "localhost"),
+            port=int(os.getenv("POSTGRES_PORT", 5432)),
+            user=os.getenv("POSTGRES_USER", "bench"),
+            password=os.getenv("POSTGRES_PASSWORD", "bench"),
+            dbname=os.getenv("POSTGRES_DB", "flights_db")
         )
-    return _POOL.get_connection()
+    return _POOL.getconn()
 
+def _put_conn(conn):
+    global _POOL
+    if _POOL:
+        _POOL.putconn(conn)
 
-def warmup_mysql():
-    conn = mysql_conn()
+def warmup_postgres():
+    conn = postgres_conn()
     cur = conn.cursor()
     try:
-        cur.execute("SELECT flight_id from flights LIMIT 1")
+        cur.execute("SELECT flight_id FROM flights LIMIT 1")
         cur.fetchone()
         conn.commit()
         return None
     finally:
         cur.close()
-        conn.close()
+        _put_conn(conn)
 
-
-def s_mysql_add_flight(cfg, iteration: int):
+def s_postgres_add_flight(cfg, iteration: int):
     flight = cfg["queries"]["insert_flight"]["flights"][iteration - 1]
     cols = [
         "year", "month", "day_of_month", "day_of_week", "fl_date",
@@ -44,45 +44,43 @@ def s_mysql_add_flight(cfg, iteration: int):
         "crs_dep_time", "crs_arr_time", "crs_elapsed_time", "distance"
     ]
     placeholders = ", ".join(["%s"] * len(cols))
-    insert_sql = f"INSERT INTO flights ({', '.join(cols)}) VALUES ({placeholders})"
+    insert_sql = f"INSERT INTO flights ({', '.join(cols)}) VALUES ({placeholders}) RETURNING flight_id"
     vals = [
-        int(flight["year"]),
-        int(flight["month"]),
-        int(flight["day_of_month"]),
-        int(flight["day_of_week"]),
-        flight["fl_date"],
-        flight["op_unique_carrier"],
-        str(flight["op_carrier_fl_num"]),
-        flight["origin"],
-        flight["dest"],
-        int(flight.get("crs_dep_time", 0)),
-        int(flight.get("crs_arr_time", 0)),
-        int(flight.get("crs_elapsed_time", 0)),
-        int(flight.get("distance", 0))
+            int(flight["year"]),
+            int(flight["month"]),
+            int(flight["day_of_month"]),
+            int(flight["day_of_week"]),
+            flight["fl_date"],
+            flight["op_unique_carrier"],
+            str(flight["op_carrier_fl_num"]),
+            flight["origin"],
+            flight["dest"],
+            int(flight.get("crs_dep_time", 0)),
+            int(flight.get("crs_arr_time", 0)),
+            int(flight.get("crs_elapsed_time", 0)),
+            int(flight.get("distance", 0))
     ]
-    conn = mysql_conn()
+    conn = postgres_conn()
     cur = conn.cursor()
     t0 = time.perf_counter()
     try:
         cur.execute(insert_sql, vals)
+        inserted_id = cur.fetchone()[0]
         conn.commit()
-        inserted_id = cur.lastrowid
-        cfg.setdefault("queries", {}).setdefault("update_flight", {}).setdefault("_inserted_ids", []).append(
-            inserted_id)
         dt = (time.perf_counter() - t0) * 1000
+        cfg.setdefault("queries", {}).setdefault("update_flight", {}).setdefault("_inserted_ids", []).append(inserted_id)
         return dt, f"inserted_id={inserted_id}"
     finally:
         cur.close()
-        conn.close()
+        _put_conn(conn)
 
-
-def s_mysql_add_flight_stats(cfg, iteration: int):
+def s_postgres_add_flight_stats(cfg, iteration: int):
     flight_id = cfg["queries"]["update_flight"]["_inserted_ids"][iteration - 1]
     perf = cfg["queries"]["update_flight"]["flight_performance"][iteration - 1]
     delayed_list = cfg["queries"]["update_flight"].get("flights_delayed", [])
     delayed_entry = next((d for d in delayed_list if d.get("flight_index") == (iteration - 1)), None)
 
-    conn = mysql_conn()
+    conn = postgres_conn()
     cur = conn.cursor()
     t0 = time.perf_counter()
     try:
@@ -117,7 +115,7 @@ def s_mysql_add_flight_stats(cfg, iteration: int):
                 int(perf.get("actual_elapsed_time", 0)),
                 int(perf.get("air_time", 0)),
                 bool(perf.get("diverted", False)),
-                int(flight_id) if delayed_entry else None,
+                flight_id if delayed_entry else None
             )
         )
 
@@ -125,6 +123,7 @@ def s_mysql_add_flight_stats(cfg, iteration: int):
             "INSERT INTO flight_status (flight_id, performance_id, cancellation_id) VALUES (%s, %s, %s)",
             (int(flight_id), int(flight_id), None)
         )
+
         conn.commit()
         dt = (time.perf_counter() - t0) * 1000
         note = f"flight_id={flight_id}, perf_inserted=1"
@@ -132,16 +131,17 @@ def s_mysql_add_flight_stats(cfg, iteration: int):
             note += f", delayed_inserted=1"
         return dt, note
     finally:
-        cur.close(); conn.close()
+        cur.close()
+        _put_conn(conn)
 
-def s_mysql_top_routes_month(cfg, iteration: int):
+def s_postgres_top_routes_month(cfg, iteration: int):
     month = iteration
     limit = int(cfg["queries"]["top_routes_month"]["limit"])
 
-    conn = mysql_conn()
+    conn = postgres_conn()
     cur = conn.cursor()
     try:
-        sql = (
+        sql_q = (
             "SELECT f.origin, f.dest, COUNT(*) AS flights_count "
             "FROM flights f "
             "WHERE f.month = %s "
@@ -150,7 +150,7 @@ def s_mysql_top_routes_month(cfg, iteration: int):
             "LIMIT %s"
         )
         t0 = time.perf_counter()
-        cur.execute(sql, (month, limit))
+        cur.execute(sql_q, (month, limit))
         rows = cur.fetchall()
         conn.commit()
         dt = (time.perf_counter() - t0) * 1000
@@ -163,10 +163,9 @@ def s_mysql_top_routes_month(cfg, iteration: int):
         return dt, note
     finally:
         cur.close()
-        conn.close()
+        _put_conn(conn)
 
-
-def s_mysql_histogram_arr_delay(cfg, iteration: int):
+def s_postgres_histogram_arr_delay(cfg, iteration: int):
     bins = cfg["queries"]["histogram_arr_delay"]["bins"]
     try:
         bins = [int(b) for b in bins]
@@ -179,34 +178,30 @@ def s_mysql_histogram_arr_delay(cfg, iteration: int):
     parts = []
     params = []
     for i in range(len(bins) - 1):
-        a = bins[i];
-        b = bins[i + 1]
+        a = bins[i]; b = bins[i + 1]
         parts.append(f"SUM(CASE WHEN p.arr_delay >= %s AND p.arr_delay < %s THEN 1 ELSE 0 END) AS b{i}")
         params.extend([a, b])
 
-    parts.append(
-        "SUM(CASE WHEN p.arr_delay < %s OR p.arr_delay >= %s OR p.arr_delay IS NULL THEN 1 ELSE 0 END) AS other")
+    parts.append("SUM(CASE WHEN p.arr_delay < %s OR p.arr_delay >= %s OR p.arr_delay IS NULL THEN 1 ELSE 0 END) AS other")
     params.extend([bins[0], bins[-1]])
 
-    sql = "SELECT " + ", ".join(parts) + " FROM flights_performance p"
+    sql_q = "SELECT " + ", ".join(parts) + " FROM flights_performance p"
 
-    conn = mysql_conn()
+    conn = postgres_conn()
     cur = conn.cursor()
     t0 = time.perf_counter()
     try:
-        cur.execute(sql, tuple(params))
+        cur.execute(sql_q, tuple(params))
         row = cur.fetchone()
         conn.commit()
         dt = (time.perf_counter() - t0) * 1000
         num_buckets = len(bins)
-        return dt, f"buckets={num_buckets}, total in first bucket={row[0] if row else 0}"
+        return dt, f"buckets={num_buckets}, total_in_first={row[0] if row else 0}"
     finally:
         cur.close()
-        conn.close()
+        _put_conn(conn)
 
-
-def s_mysql_find_flights_route_range_with_stats(cfg, iteration: int):
-    # TODO adjust bench_config to have more rows as a result (adjust numuber of batches and/or use most popular routes)
+def s_postgres_find_flights_route_range_with_stats(cfg, iteration: int):
     idx = iteration - 1
     route = cfg["queries"]["find_all_flights_on_route"]["routes"][idx]
     origin = route.get("origin")
@@ -215,7 +210,7 @@ def s_mysql_find_flights_route_range_with_stats(cfg, iteration: int):
     date_to = route.get("date_to")
     limit = int(cfg.get("queries", {}).get("find_all_flights_on_route", {}).get("limit", 1000))
 
-    sql = (
+    sql_q = (
         "SELECT f.flight_id, f.fl_date, f.op_unique_carrier, f.op_carrier_fl_num, f.origin, f.dest, "
         "p.dep_time, p.dep_delay, p.arr_time, p.arr_delay, p.actual_elapsed_time, p.air_time, p.diverted, "
         "d.carrier_delay, d.weather_delay, d.nas_delay, d.security_delay, d.late_aircraft_delay, "
@@ -228,11 +223,11 @@ def s_mysql_find_flights_route_range_with_stats(cfg, iteration: int):
         "LIMIT %s"
     )
 
-    conn = mysql_conn()
+    conn = postgres_conn()
     cur = conn.cursor()
     t0 = time.perf_counter()
     try:
-        cur.execute(sql, (origin, dest, date_from, date_to, limit))
+        cur.execute(sql_q, (origin, dest, date_from, date_to, limit))
         rows = cur.fetchall()
         conn.commit()
         dt = (time.perf_counter() - t0) * 1000
@@ -242,19 +237,17 @@ def s_mysql_find_flights_route_range_with_stats(cfg, iteration: int):
         return dt, note
     finally:
         cur.close()
-        conn.close()
+        _put_conn(conn)
 
-
-def s_mysql_get_flight_with_stats(cfg, iteration: int):
+def s_postgres_get_flight_with_stats(cfg, iteration: int):
     raise NotImplemented
 
-
-def s_mysql_rank_punctual_airlines(cfg, iteration: int):
+def s_postgres_rank_punctual_airlines(cfg, iteration: int):
     limit = int(cfg["queries"]["airlines_ranking"]["limit"])
     cancellation_weight = float(cfg["queries"]["airlines_ranking"]["cancellation_weight"])
     ranking_for_month = iteration
 
-    sql = (
+    sql_q = (
         "SELECT f.op_unique_carrier AS carrier, "
         "       AVG(p.arr_delay) AS avg_arr_delay, "
         "       SUM(CASE WHEN c.flight_id IS NOT NULL THEN 1 ELSE 0 END) AS cancelled_count, "
@@ -270,38 +263,36 @@ def s_mysql_rank_punctual_airlines(cfg, iteration: int):
         "LIMIT %s"
     )
 
-    conn = mysql_conn()
+    conn = postgres_conn()
     cur = conn.cursor()
     t0 = time.perf_counter()
     try:
-        cur.execute(sql, (cancellation_weight, ranking_for_month, limit,))
+        cur.execute(sql_q, (cancellation_weight, ranking_for_month, limit))
         rows = cur.fetchall()
         conn.commit()
         dt = (time.perf_counter() - t0) * 1000
-        note = "month=" + str(ranking_for_month) + ", " + "most_punctual=" + rows[0][0] if rows else "no_results"
+        note = ("month=" + str(ranking_for_month) + ", most_punctual=" + rows[0][0]) if rows else "no_results"
         return dt, note
     finally:
         cur.close()
-        conn.close()
+        _put_conn(conn)
 
-
-SCENARIOS_MYSQL = [
-    ("mysql_add_flight", s_mysql_add_flight),
-    ("mysql_add_flight_stats", s_mysql_add_flight_stats),
-    ("mysql_top_routes_month", s_mysql_top_routes_month),
-    ("mysql_histogram_arr_delay", s_mysql_histogram_arr_delay),
-    ("mysql_find_route_with_stats", s_mysql_find_flights_route_range_with_stats),
-    # ("mysql_get_flight_with_stats", s_mysql_get_flight_with_stats),
-    ("mysql_rank_punctual_airlines", s_mysql_rank_punctual_airlines),
+SCENARIOS_POSTGRES = [
+    ("postgres_add_flight", s_postgres_add_flight),
+    ("postgres_add_flight_stats", s_postgres_add_flight_stats),
+    ("postgres_top_routes_month", s_postgres_top_routes_month),
+    ("postgres_histogram_arr_delay", s_postgres_histogram_arr_delay),
+    ("postgres_find_route_with_stats", s_postgres_find_flights_route_range_with_stats),
+    # ("postgres_get_flight_with_stats", s_postgres_get_flight_with_stats),
+    ("postgres_rank_punctual_airlines", s_postgres_rank_punctual_airlines),
 ]
 
-
-def run_mysql(cfg, dataset_name: str, dataset_size: int):
-    # TODO: create mysql db container and insert data according to dataset_Size
-    warmup_mysql()
-    for name, fn in SCENARIOS_MYSQL:
+def run_postgres(cfg, dataset_name: str, dataset_size: int):
+    # TODO: create postgres db container and insert data according to dataset_Size
+    warmup_postgres()
+    for name, fn in SCENARIOS_POSTGRES:
         for r in range(1, int(cfg["repeats"]) + 1):
             dt, notes = fn(cfg, r)
-            log_result("mysql", dataset_name, name, r, dt, notes)
-            print(f"[mysql][{name}][run={r}] {dt:.2f} ms :: {notes}")
-    # TODO: delete mysql database container (with db data)
+            log_result("postgres", dataset_name, name, r, dt, notes)
+            print(f"[postgres][{name}][run={r}] {dt:.2f} ms :: {notes}")
+    # TODO: delete posgres database container (with db data)

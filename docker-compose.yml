@@ -95,7 +95,7 @@ services:
       cassandra: { condition: service_healthy }
     command: ["bash", "-lc", "sleep infinity"]
     deploy:
-      resources: { limits: { cpus: "1.5", memory: "1g" } }
+      resources: { limits: { cpus: "2.0", memory: "10g" } }
 
 volumes:
   pgdata:

@@ -1,5 +1,14 @@
-db: mysql
-dataset_name: "10k"
+db: [ mysql, postgres, mongodb, cassandra ]
+samples:
+  src_file: /data/raw/flight_data_2024.csv
+  dst_dir: /data/processed
+datasets:
+  - size: 10000
+    name: 10k
+  - size: 1000000
+    name: 1M
+  - size: 7000000
+    name: 7M
 repeats: 12
 
 queries:
@@ -176,7 +185,7 @@ queries:
   update_flight:
     _inserted_ids: [ ]
     flight_performance:
-      - ep_time: 830
+      - dep_time: 830
         dep_delay: 5
         taxi_out: 12
         wheels_off: 842
@@ -189,7 +198,7 @@ queries:
         diverted: false
         delay_id: null
 
-      - ep_time: 1200
+      - dep_time: 1200
         dep_delay: 0
         taxi_out: 15
         wheels_off: 1215
@@ -202,7 +211,7 @@ queries:
         diverted: false
         delay_id: null
 
-      - ep_time: 915
+      - dep_time: 915
         dep_delay: 10
         taxi_out: 8
         wheels_off: 923
@@ -215,7 +224,7 @@ queries:
         diverted: false
         delay_id: null
 
-      - ep_time: 745
+      - dep_time: 745
         dep_delay: 0
         taxi_out: 10
         wheels_off: 755
@@ -228,7 +237,7 @@ queries:
         diverted: false
         delay_id: null
 
-      - ep_time: 1420
+      - dep_time: 1420
         dep_delay: 3
         taxi_out: 7
         wheels_off: 1427
@@ -241,7 +250,7 @@ queries:
         diverted: false
         delay_id: null
 
-      - ep_time: 610
+      - dep_time: 610
         dep_delay: -2
         taxi_out: 10
         wheels_off: 620
@@ -254,7 +263,7 @@ queries:
         diverted: false
         delay_id: null
 
-      - ep_time: 1130
+      - dep_time: 1130
         dep_delay: 0
         taxi_out: 9
         wheels_off: 1139
@@ -267,7 +276,7 @@ queries:
         diverted: false
         delay_id: null
 
-      - ep_time: 1645
+      - dep_time: 1645
         dep_delay: 7
         taxi_out: 14
         wheels_off: 1659
@@ -280,7 +289,7 @@ queries:
         diverted: false
         delay_id: null
 
-      - ep_time: 1300
+      - dep_time: 1300
         dep_delay: 0
         taxi_out: 11
         wheels_off: 1311
@@ -293,7 +302,7 @@ queries:
         diverted: false
         delay_id: null
 
-      - ep_time: 1820
+      - dep_time: 1820
         dep_delay: 2
         taxi_out: 7
         wheels_off: 1827

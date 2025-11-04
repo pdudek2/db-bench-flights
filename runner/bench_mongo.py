@@ -93,7 +93,7 @@ SCENARIOS_MONGO = [
     ("mongo_delete_many",         s_mongo_delete_many),
 ]
 
-def run_mongo(cfg):
+def run_mongo(cfg, dataset_name: str, dataset_size: int):
     for name, fn in SCENARIOS_MONGO:
         for r in range(1, int(cfg["repeats"])+1):
             ms, notes = fn(cfg)

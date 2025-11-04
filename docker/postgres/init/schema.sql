@@ -90,7 +90,7 @@ ALTER TABLE flights_performance
     ADD CONSTRAINT fk_delay FOREIGN KEY (delay_id) REFERENCES flights_delayed (flight_id);
 
 ALTER TABLE flights_delayed
-    ADD CONSTRAINT fk_delayed_perf FOREIGN KEY (flight_id) REFERENCES flights_performance (flight_id);
+    ADD CONSTRAINT fk_delayed_perf FOREIGN KEY (flight_id) REFERENCES flights (flight_id);
 
 ALTER TABLE flights_cancelled
     ADD CONSTRAINT fk_cancelled_flight FOREIGN KEY (flight_id) REFERENCES flights (flight_id);

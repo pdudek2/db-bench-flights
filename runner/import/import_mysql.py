@@ -1,4 +1,3 @@
-import pandas as pd
 import mysql.connector
 import os
 from dotenv import load_dotenv
@@ -21,7 +20,6 @@ MYSQL_FLIGHTS_INSERT_SQL = """
 """
 
 def get_mysql_last_id(cursor):
-    """Retrieves the last inserted ID for MySQL."""
     return cursor.lastrowid
 
 def load_data(file_name):

@@ -1,7 +1,7 @@
 import argparse, pandas as pd
 from pathlib import Path
 
-def make_samples(src, out, sizes=(10_000, 100_000, 1_000_000)):
+def make_samples(src: str, out: str, sizes=(10_000, 100_000, 1_000_000)):
     out = Path(out); out.mkdir(parents=True, exist_ok=True)
     frames = []
     for chunk in pd.read_csv(src, chunksize=200_000, low_memory=False):
@@ -15,6 +15,7 @@ def make_samples(src, out, sizes=(10_000, 100_000, 1_000_000)):
             print(f"wrote {p} ({n} rows)")
         else:
             print(f"source has {len(df)} rows; cannot make {n}")
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", required=True)

@@ -128,7 +128,7 @@ SCENARIOS_CASS = [
     ("cass_histogram_arr_delay_month", s_cass_histogram_arr_delay_month),
 ]
 
-def run_cassandra(cfg):
+def run_cassandra(cfg, dataset_name: str, dataset_size: int):
     for name, fn in SCENARIOS_CASS:
         for r in range(1, int(cfg["repeats"])+1):
             ms, notes = fn(cfg)
