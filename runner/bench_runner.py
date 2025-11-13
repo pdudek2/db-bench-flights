@@ -21,10 +21,10 @@ def ensure_results_header():
             csv.writer(f).writerow(["ts", "db", "dataset", "scenario", "repeat", "elapsed_ms", "notes"])
 
 db_runners = {
-    # "mongo": run_mongo,
+    "mongo": run_mongo,
     "mysql": run_mysql,
     "postgres": run_postgres,
-    # "cassandra": run_cassandra
+    "cassandra": run_cassandra
 }
 
 def prepare_samples(cfg):
@@ -47,5 +47,3 @@ if __name__ == "__main__":
             run_function = db_runners[db]
             print(f"\nStarting tests for **{db}**, dataset size **{dataset_name}**...")
             run_function(cfg, dataset_size, dataset_name)
-    else:
-        raise SystemExit(f"Unknown db in bench_config.yml: {db}")

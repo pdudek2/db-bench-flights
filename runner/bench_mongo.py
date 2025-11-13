@@ -93,9 +93,13 @@ SCENARIOS_MONGO = [
     ("mongo_delete_many",         s_mongo_delete_many),
 ]
 
-def run_mongo(cfg, dataset_name: str, dataset_size: int):
+def run_mongo(cfg, dataset_size: int, dataset_name: str):
+    crud_cfg = cfg.setdefault("crud", {})
+    crud_cfg["sample_size_for_writes"] = dataset_size
+    crud_cfg.setdefault("sample_size_for_reads", dataset_size)
+
     for name, fn in SCENARIOS_MONGO:
-        for r in range(1, int(cfg["repeats"])+1):
+        for r in range(1, int(cfg["repeats"]) + 1):
             ms, notes = fn(cfg)
-            log_result("mongo", cfg["dataset_name"], name, r, ms, notes)
+            log_result("mongo", dataset_name, name, r, ms, notes)
             print(f"[mongo][{name}][run={r}] {ms:.2f} ms :: {notes}")

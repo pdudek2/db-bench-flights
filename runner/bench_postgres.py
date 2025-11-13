@@ -45,49 +45,89 @@ def s_postgres_add_flight(cfg, iteration: int):
     ]
     placeholders = ", ".join(["%s"] * len(cols))
     insert_sql = f"INSERT INTO flights ({', '.join(cols)}) VALUES ({placeholders}) RETURNING flight_id"
-    vals = [
-            int(flight["year"]),
-            int(flight["month"]),
-            int(flight["day_of_month"]),
-            int(flight["day_of_week"]),
-            flight["fl_date"],
-            flight["op_unique_carrier"],
-            str(flight["op_carrier_fl_num"]),
-            flight["origin"],
-            flight["dest"],
-            int(flight.get("crs_dep_time", 0)),
-            int(flight.get("crs_arr_time", 0)),
-            int(flight.get("crs_elapsed_time", 0)),
-            int(flight.get("distance", 0))
-    ]
+
     conn = postgres_conn()
     cur = conn.cursor()
+
+    cur.execute("SELECT carrier_code FROM airline LIMIT 1;")
+    row = cur.fetchone()
+    carrier_code = row[0] if row else flight["op_unique_carrier"]
+
+    vals = [
+        int(flight["year"]),
+        int(flight["month"]),
+        int(flight["day_of_month"]),
+        int(flight["day_of_week"]),
+        flight["fl_date"],
+        carrier_code,  
+        str(flight["op_carrier_fl_num"]),
+        flight["origin"],
+        flight["dest"],
+        int(flight.get("crs_dep_time", 0)),
+        int(flight.get("crs_arr_time", 0)),
+        int(flight.get("crs_elapsed_time", 0)),
+        int(flight.get("distance", 0))
+    ]
+
     t0 = time.perf_counter()
     try:
         cur.execute(insert_sql, vals)
         inserted_id = cur.fetchone()[0]
         conn.commit()
         dt = (time.perf_counter() - t0) * 1000
-        cfg.setdefault("queries", {}).setdefault("update_flight", {}).setdefault("_inserted_ids", []).append(inserted_id)
+        cfg.setdefault("queries", {}).setdefault("insert_flight", {}).setdefault("_inserted_ids_postgres", []).append(inserted_id)
         return dt, f"inserted_id={inserted_id}"
     finally:
         cur.close()
         _put_conn(conn)
 
 def s_postgres_add_flight_stats(cfg, iteration: int):
-    flight_id = cfg["queries"]["update_flight"]["_inserted_ids"][iteration - 1]
-    perf = cfg["queries"]["update_flight"]["flight_performance"][iteration - 1]
-    delayed_list = cfg["queries"]["update_flight"].get("flights_delayed", [])
-    delayed_entry = next((d for d in delayed_list if d.get("flight_index") == (iteration - 1)), None)
-
     conn = postgres_conn()
     cur = conn.cursor()
+
+    update_flight_cfg = cfg["queries"].setdefault("update_flight", {})
+    inserted_ids = update_flight_cfg.get("_inserted_ids_postgres", [])
+
+    if len(inserted_ids) >= iteration:
+        flight_id = inserted_ids[iteration - 1]
+    else:
+        cur.execute("""
+            SELECT f.flight_id
+            FROM flights f
+            LEFT JOIN flights_performance p ON p.flight_id = f.flight_id
+            WHERE p.flight_id IS NULL
+            ORDER BY f.flight_id DESC
+            LIMIT 1;
+        """)
+        row = cur.fetchone()
+        if not row or row[0] is None:
+            cur.close()
+            _put_conn(conn)
+            raise RuntimeError("Brak lotu bez statystyk dla postgres_add_flight_stats")
+        flight_id = row[0]
+
+    perf = update_flight_cfg["flight_performance"][iteration - 1]
+    delayed_list = update_flight_cfg.get("flights_delayed", [])
+    delayed_entry = next(
+        (d for d in delayed_list if d.get("flight_index") == (iteration - 1)),
+        None
+    )
+
     t0 = time.perf_counter()
     try:
         if delayed_entry:
             cur.execute(
-                "INSERT INTO flights_delayed (flight_id, carrier_delay, weather_delay, nas_delay, security_delay, late_aircraft_delay) "
-                "VALUES (%s, %s, %s, %s, %s, %s)",
+                """
+                INSERT INTO flights_delayed (
+                    flight_id,
+                    carrier_delay,
+                    weather_delay,
+                    nas_delay,
+                    security_delay,
+                    late_aircraft_delay
+                )
+                VALUES (%s, %s, %s, %s, %s, %s)
+                """,
                 (
                     int(flight_id),
                     int(delayed_entry.get("carrier_delay", 0)),
@@ -99,9 +139,25 @@ def s_postgres_add_flight_stats(cfg, iteration: int):
             )
 
         cur.execute(
-            "INSERT INTO flights_performance (flight_id, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, "
-            "arr_time, arr_delay, actual_elapsed_time, air_time, diverted, delay_id) "
-            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            """
+            INSERT INTO flights_performance (
+                flight_id,
+                dep_time,
+                dep_delay,
+                taxi_out,
+                wheels_off,
+                wheels_on,
+                taxi_in,
+                arr_time,
+                arr_delay,
+                actual_elapsed_time,
+                air_time,
+                diverted,
+                delay_id
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ON CONFLICT (flight_id) DO NOTHING
+            """,
             (
                 int(flight_id),
                 int(perf.get("dep_time", 0)),
@@ -115,12 +171,15 @@ def s_postgres_add_flight_stats(cfg, iteration: int):
                 int(perf.get("actual_elapsed_time", 0)),
                 int(perf.get("air_time", 0)),
                 bool(perf.get("diverted", False)),
-                flight_id if delayed_entry else None
+                flight_id if delayed_entry else None,
             )
         )
 
         cur.execute(
-            "INSERT INTO flight_status (flight_id, performance_id, cancellation_id) VALUES (%s, %s, %s)",
+            """
+            INSERT INTO flight_status (flight_id, performance_id, cancellation_id)
+            VALUES (%s, %s, %s)
+            """,
             (int(flight_id), int(flight_id), None)
         )
 
@@ -128,8 +187,9 @@ def s_postgres_add_flight_stats(cfg, iteration: int):
         dt = (time.perf_counter() - t0) * 1000
         note = f"flight_id={flight_id}, perf_inserted=1"
         if delayed_entry:
-            note += f", delayed_inserted=1"
+            note += ", delayed_inserted=1"
         return dt, note
+
     finally:
         cur.close()
         _put_conn(conn)

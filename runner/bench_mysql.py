@@ -45,13 +45,21 @@ def s_mysql_add_flight(cfg, iteration: int):
     ]
     placeholders = ", ".join(["%s"] * len(cols))
     insert_sql = f"INSERT INTO flights ({', '.join(cols)}) VALUES ({placeholders})"
+
+    conn = mysql_conn()
+    cur = conn.cursor()
+
+    cur.execute("SELECT carrier_code FROM airline LIMIT 1;")
+    row = cur.fetchone()
+    carrier_code = row[0] if row else "UNKNOWN"
+
     vals = [
         int(flight["year"]),
         int(flight["month"]),
         int(flight["day_of_month"]),
         int(flight["day_of_week"]),
         flight["fl_date"],
-        flight["op_unique_carrier"],
+        carrier_code,
         str(flight["op_carrier_fl_num"]),
         flight["origin"],
         flight["dest"],
@@ -60,36 +68,63 @@ def s_mysql_add_flight(cfg, iteration: int):
         int(flight.get("crs_elapsed_time", 0)),
         int(flight.get("distance", 0))
     ]
-    conn = mysql_conn()
-    cur = conn.cursor()
-    t0 = time.perf_counter()
-    try:
-        cur.execute(insert_sql, vals)
-        conn.commit()
-        inserted_id = cur.lastrowid
-        cfg.setdefault("queries", {}).setdefault("update_flight", {}).setdefault("_inserted_ids", []).append(
-            inserted_id)
-        dt = (time.perf_counter() - t0) * 1000
-        return dt, f"inserted_id={inserted_id}"
-    finally:
-        cur.close()
-        conn.close()
 
+    start = time.perf_counter()
+    cur.execute(insert_sql, vals)
+    inserted_id = cur.lastrowid
+    inserted_ids = cfg["queries"]["update_flight"].setdefault("_inserted_ids", [])
+    inserted_ids.append(inserted_id)
+
+    conn.commit()
+    end = time.perf_counter()
+
+    cur.close()
+    conn.close()
+
+    elapsed_ms = (end - start) * 1000
+    return elapsed_ms, "OK"
 
 def s_mysql_add_flight_stats(cfg, iteration: int):
-    flight_id = cfg["queries"]["update_flight"]["_inserted_ids"][iteration - 1]
-    perf = cfg["queries"]["update_flight"]["flight_performance"][iteration - 1]
-    delayed_list = cfg["queries"]["update_flight"].get("flights_delayed", [])
-    delayed_entry = next((d for d in delayed_list if d.get("flight_index") == (iteration - 1)), None)
-
     conn = mysql_conn()
     cur = conn.cursor()
+
+    update_flight_cfg = cfg["queries"]["update_flight"]
+    inserted_ids = update_flight_cfg.get("_inserted_ids", [])
+
+    repeats = int(cfg.get("repeats", len(inserted_ids) or 1))
+
+    start_index = max(0, len(inserted_ids) - repeats)
+    index = start_index + (iteration - 1)
+
+    if 0 <= index < len(inserted_ids):
+        flight_id = int(inserted_ids[index])
+    else:
+        cur.execute("SELECT MAX(flight_id) FROM flights;")
+        row = cur.fetchone()
+        flight_id = int(row[0])
+
+    perf = update_flight_cfg["flight_performance"][iteration - 1]
+    delayed_list = update_flight_cfg.get("flights_delayed", [])
+    delayed_entry = next(
+        (d for d in delayed_list if d.get("flight_index") == (iteration - 1)),
+        None
+    )
+
     t0 = time.perf_counter()
     try:
         if delayed_entry:
             cur.execute(
-                "INSERT INTO flights_delayed (flight_id, carrier_delay, weather_delay, nas_delay, security_delay, late_aircraft_delay) "
-                "VALUES (%s, %s, %s, %s, %s, %s)",
+                """
+                INSERT INTO flights_delayed (
+                    flight_id,
+                    carrier_delay,
+                    weather_delay,
+                    nas_delay,
+                    security_delay,
+                    late_aircraft_delay
+                )
+                VALUES (%s, %s, %s, %s, %s, %s)
+                """,
                 (
                     int(flight_id),
                     int(delayed_entry.get("carrier_delay", 0)),
@@ -101,9 +136,24 @@ def s_mysql_add_flight_stats(cfg, iteration: int):
             )
 
         cur.execute(
-            "INSERT INTO flights_performance (flight_id, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, "
-            "arr_time, arr_delay, actual_elapsed_time, air_time, diverted, delay_id) "
-            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            """
+            INSERT INTO flights_performance (
+                flight_id,
+                dep_time,
+                dep_delay,
+                taxi_out,
+                wheels_off,
+                wheels_on,
+                taxi_in,
+                arr_time,
+                arr_delay,
+                actual_elapsed_time,
+                air_time,
+                diverted,
+                delay_id
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """,
             (
                 int(flight_id),
                 int(perf.get("dep_time", 0)),
@@ -117,22 +167,28 @@ def s_mysql_add_flight_stats(cfg, iteration: int):
                 int(perf.get("actual_elapsed_time", 0)),
                 int(perf.get("air_time", 0)),
                 bool(perf.get("diverted", False)),
-                int(flight_id) if delayed_entry else None,
+                flight_id if delayed_entry else None,
             )
         )
 
         cur.execute(
-            "INSERT INTO flight_status (flight_id, performance_id, cancellation_id) VALUES (%s, %s, %s)",
+            """
+            INSERT INTO flight_status (flight_id, performance_id, cancellation_id)
+            VALUES (%s, %s, %s)
+            """,
             (int(flight_id), int(flight_id), None)
         )
+
         conn.commit()
         dt = (time.perf_counter() - t0) * 1000
         note = f"flight_id={flight_id}, perf_inserted=1"
         if delayed_entry:
-            note += f", delayed_inserted=1"
+            note += ", delayed_inserted=1"
         return dt, note
+
     finally:
-        cur.close(); conn.close()
+        cur.close()
+        conn.close()
 
 def s_mysql_top_routes_month(cfg, iteration: int):
     month = iteration

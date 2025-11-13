@@ -6,12 +6,15 @@ import argparse
 
 load_dotenv()
 DB_CONFIG = {
-    'host': os.getenv('MYSQL_HOST', 'localhost'),
+    'host': os.getenv('MYSQL_HOST', 'mysql'),
     'port': int(os.getenv('MYSQL_PORT', 3306)),
-    'user': os.getenv('MYSQL_USER'),
-    'password': os.getenv('MYSQL_PASSWORD'),
-    'database': os.getenv('MYSQL_DATABASE')
+    'user': 'root',
+    'password': os.getenv('MYSQL_ROOT_PASSWORD', 'super_password'),
+    'database': os.getenv('MYSQL_DATABASE', 'flights')
 }
+
+def get_mysql_connection():
+    return mysql.connector.connect(**DB_CONFIG)
 
 MYSQL_FLIGHTS_INSERT_SQL = """
     INSERT INTO flights (year, month, day_of_month, day_of_week, fl_date, op_unique_carrier, 
