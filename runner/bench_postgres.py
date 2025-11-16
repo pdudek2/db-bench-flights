@@ -38,20 +38,42 @@ def warmup_postgres():
 
 def s_postgres_add_flight(cfg, iteration: int):
     flight = cfg["queries"]["insert_flight"]["flights"][iteration - 1]
+
     cols = [
         "year", "month", "day_of_month", "day_of_week", "fl_date",
         "op_unique_carrier", "op_carrier_fl_num", "origin", "dest",
-        "crs_dep_time", "crs_arr_time", "crs_elapsed_time", "distance"
+        "crs_dep_time", "crs_arr_time", "crs_elapsed_time", "distance",
     ]
     placeholders = ", ".join(["%s"] * len(cols))
-    insert_sql = f"INSERT INTO flights ({', '.join(cols)}) VALUES ({placeholders}) RETURNING flight_id"
+    insert_sql = (
+        f"INSERT INTO flights ({', '.join(cols)}) "
+        f"VALUES ({placeholders}) RETURNING flight_id"
+    )
 
     conn = postgres_conn()
     cur = conn.cursor()
 
-    cur.execute("SELECT carrier_code FROM airline LIMIT 1;")
-    row = cur.fetchone()
-    carrier_code = row[0] if row else flight["op_unique_carrier"]
+    carrier_code = flight["op_unique_carrier"]
+    cur.execute("SELECT 1 FROM airline WHERE carrier_code = %s", (carrier_code,))
+    if not cur.fetchone():
+        cur.execute(
+            "INSERT INTO airline (carrier_code) VALUES (%s)",
+            (carrier_code,),
+        )
+
+    origin = flight["origin"]
+    dest = flight["dest"]
+
+    for code in {origin, dest}:
+        cur.execute("SELECT 1 FROM airport WHERE airport_code = %s", (code,))
+        if not cur.fetchone():
+            cur.execute(
+                "INSERT INTO airport (airport_code, city_name, state_name) "
+                "VALUES (%s, NULL, NULL)",
+                (code,),
+            )
+
+    conn.commit()
 
     vals = [
         int(flight["year"]),
@@ -59,14 +81,14 @@ def s_postgres_add_flight(cfg, iteration: int):
         int(flight["day_of_month"]),
         int(flight["day_of_week"]),
         flight["fl_date"],
-        carrier_code,  
+        carrier_code,
         str(flight["op_carrier_fl_num"]),
-        flight["origin"],
-        flight["dest"],
+        origin,
+        dest,
         int(flight.get("crs_dep_time", 0)),
         int(flight.get("crs_arr_time", 0)),
         int(flight.get("crs_elapsed_time", 0)),
-        int(flight.get("distance", 0))
+        int(flight.get("distance", 0)),
     ]
 
     t0 = time.perf_counter()
@@ -75,7 +97,14 @@ def s_postgres_add_flight(cfg, iteration: int):
         inserted_id = cur.fetchone()[0]
         conn.commit()
         dt = (time.perf_counter() - t0) * 1000
-        cfg.setdefault("queries", {}).setdefault("insert_flight", {}).setdefault("_inserted_ids_postgres", []).append(inserted_id)
+
+        inserted_ids = (
+            cfg.setdefault("queries", {})
+               .setdefault("update_flight", {})
+               .setdefault("_inserted_ids_postgres", [])
+        )
+        inserted_ids.append(inserted_id)
+
         return dt, f"inserted_id={inserted_id}"
     finally:
         cur.close()
@@ -86,25 +115,24 @@ def s_postgres_add_flight_stats(cfg, iteration: int):
     cur = conn.cursor()
 
     update_flight_cfg = cfg["queries"].setdefault("update_flight", {})
-    inserted_ids = update_flight_cfg.get("_inserted_ids_postgres", [])
 
-    if len(inserted_ids) >= iteration:
-        flight_id = inserted_ids[iteration - 1]
-    else:
-        cur.execute("""
-            SELECT f.flight_id
-            FROM flights f
-            LEFT JOIN flights_performance p ON p.flight_id = f.flight_id
-            WHERE p.flight_id IS NULL
-            ORDER BY f.flight_id DESC
-            LIMIT 1;
-        """)
-        row = cur.fetchone()
-        if not row or row[0] is None:
-            cur.close()
-            _put_conn(conn)
-            raise RuntimeError("Brak lotu bez statystyk dla postgres_add_flight_stats")
-        flight_id = row[0]
+    cur.execute(
+        """
+        SELECT f.flight_id
+        FROM flights f
+        LEFT JOIN flights_performance p ON p.flight_id = f.flight_id
+        WHERE p.flight_id IS NULL
+        ORDER BY f.flight_id DESC
+        LIMIT 1;
+        """
+    )
+    row = cur.fetchone()
+    if not row or row[0] is None:
+        cur.close()
+        _put_conn(conn)
+        raise RuntimeError("Brak lotu bez statystyk dla postgres_add_flight_stats")
+
+    flight_id = row[0]
 
     perf = update_flight_cfg["flight_performance"][iteration - 1]
     delayed_list = update_flight_cfg.get("flights_delayed", [])
@@ -127,6 +155,7 @@ def s_postgres_add_flight_stats(cfg, iteration: int):
                     late_aircraft_delay
                 )
                 VALUES (%s, %s, %s, %s, %s, %s)
+                ON CONFLICT (flight_id) DO NOTHING
                 """,
                 (
                     int(flight_id),

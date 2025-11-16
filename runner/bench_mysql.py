@@ -35,9 +35,9 @@ def warmup_mysql():
         cur.close()
         conn.close()
 
-
 def s_mysql_add_flight(cfg, iteration: int):
     flight = cfg["queries"]["insert_flight"]["flights"][iteration - 1]
+
     cols = [
         "year", "month", "day_of_month", "day_of_week", "fl_date",
         "op_unique_carrier", "op_carrier_fl_num", "origin", "dest",
@@ -51,7 +51,28 @@ def s_mysql_add_flight(cfg, iteration: int):
 
     cur.execute("SELECT carrier_code FROM airline LIMIT 1;")
     row = cur.fetchone()
-    carrier_code = row[0] if row else "UNKNOWN"
+    if row:
+        carrier_code = row[0]
+    else:
+        carrier_code = "ZZ"
+        cur.execute(
+            "INSERT INTO airline (carrier_code) VALUES (%s)",
+            (carrier_code,)
+        )
+        conn.commit()
+
+    origin = str(flight["origin"])
+    dest = str(flight["dest"])
+
+    for code in {origin, dest}:
+        cur.execute("SELECT 1 FROM airport WHERE airport_code = %s", (code,))
+        if not cur.fetchone():
+            cur.execute(
+                "INSERT INTO airport (airport_code, city_name, state_name) "
+                "VALUES (%s, NULL, NULL)",
+                (code,)
+            )
+    conn.commit()
 
     vals = [
         int(flight["year"]),
@@ -61,28 +82,28 @@ def s_mysql_add_flight(cfg, iteration: int):
         flight["fl_date"],
         carrier_code,
         str(flight["op_carrier_fl_num"]),
-        flight["origin"],
-        flight["dest"],
+        origin,
+        dest,
         int(flight.get("crs_dep_time", 0)),
         int(flight.get("crs_arr_time", 0)),
         int(flight.get("crs_elapsed_time", 0)),
-        int(flight.get("distance", 0))
+        int(flight.get("distance", 0)),
     ]
 
-    start = time.perf_counter()
+    t0 = time.perf_counter()
     cur.execute(insert_sql, vals)
     inserted_id = cur.lastrowid
+
     inserted_ids = cfg["queries"]["update_flight"].setdefault("_inserted_ids", [])
     inserted_ids.append(inserted_id)
 
     conn.commit()
-    end = time.perf_counter()
+    dt = (time.perf_counter() - t0) * 1000
 
     cur.close()
     conn.close()
 
-    elapsed_ms = (end - start) * 1000
-    return elapsed_ms, "OK"
+    return dt, "OK"
 
 def s_mysql_add_flight_stats(cfg, iteration: int):
     conn = mysql_conn()
