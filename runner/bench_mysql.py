@@ -22,6 +22,23 @@ def mysql_conn():
         )
     return _POOL.get_connection()
 
+def reset_mysql():
+    conn = mysql_conn()
+    cur = conn.cursor()
+    cur.execute("SET FOREIGN_KEY_CHECKS = 0;")
+
+    for table in ["flight_status",
+                  "flights_delayed",
+                  "flights_cancelled",
+                  "flights_performance",
+                  "flights"]:
+        cur.execute(f"TRUNCATE TABLE {table};")
+
+    cur.execute("SET FOREIGN_KEY_CHECKS = 1;")
+    conn.commit()
+    cur.close()
+    conn.close()
+
 
 def warmup_mysql():
     conn = mysql_conn()

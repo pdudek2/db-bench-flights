@@ -19,6 +19,22 @@ def postgres_conn():
         )
     return _POOL.getconn()
 
+def reset_postgres():
+    conn = postgres_conn()
+    cur = conn.cursor()
+    cur.execute("""
+        TRUNCATE TABLE
+            flight_status,
+            flights_delayed,
+            flights_cancelled,
+            flights_performance,
+            flights
+        RESTART IDENTITY CASCADE;
+    """)
+    conn.commit()
+    cur.close()
+    conn.close()
+
 def _put_conn(conn):
     global _POOL
     if _POOL:

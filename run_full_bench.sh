@@ -1,22 +1,36 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "1/5 docker compose up (databases + runner)"
-docker compose up -d
+DATASETS=("10k" "100k" "1m")
 
-echo "2/5 initializing Cassandra schema"
-docker exec dbbench-cassandra cqlsh -f /docker-entrypoint-initdb.d/schema.cql
+for DATASET in "${DATASETS[@]}"; do
+  echo "========================================="
+  echo ">>> Running benchmarks for dataset: ${DATASET}"
+  echo "========================================="
 
-echo "3/5 installing Python dependencies in runner"
-docker compose exec -T runner bash -lc "cd /app && pip install -r requirements.txt"
+  echo "1/4 docker compose up (databases + runner)"
+  docker compose up -d
 
-echo "4/5 running bench_runner.py"
-docker compose exec -T runner bash -lc "cd /app && python bench_runner.py"
+  echo "2/4 initializing Cassandra schema"
+  docker exec dbbench-cassandra cqlsh -f /docker-entrypoint-initdb.d/schema.cql
 
-echo "5/5 running analyze_results.py"
-docker compose exec -T runner bash -lc "cd /app && python analyze_results.py"
+  echo "3/4 installing Python dependencies in runner"
+  docker compose exec -T runner bash -lc "cd /app && pip install -r requirements.txt"
 
-echo "stopping containers and removing volumes (docker compose down -v)"
+  echo "4/4 running bench_runner.py for dataset ${DATASET}"
+
+  docker compose exec -T runner bash -lc "cd /app && python bench_runner.py --dataset ${DATASET}"
+
+  echo "stopping containers and removing volumes (docker compose down -v) after dataset ${DATASET}"
+  docker compose down -v
+done
+
+echo "========================================="
+echo ">>> Running analyze_results.py on accumulated results"
+echo "========================================="
+
+docker compose up -d runner
+docker compose exec -T runner bash -lc "cd /app && pip install -r requirements.txt && python analyze_results.py"
 docker compose down -v
 
 echo "done. Results are in runner/results/results.csv"

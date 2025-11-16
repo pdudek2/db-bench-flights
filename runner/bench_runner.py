@@ -2,11 +2,11 @@ import csv
 import yaml
 from pathlib import Path
 
-from bench_cassandra import run_cassandra
-from bench_mongo import run_mongo
-from bench_mysql import run_mysql
+from bench_cassandra import run_cassandra, reset_cassandra
+from bench_mongo import run_mongo, reset_mongo
+from bench_mysql import run_mysql, reset_mysql
+from bench_postgres import run_postgres, reset_postgres
 from make_samples import make_samples
-from bench_postgres import run_postgres
 
 RESULTS_PATH = Path("/app/results/results.csv")
 
@@ -27,6 +27,13 @@ db_runners = {
     "cassandra": run_cassandra
 }
 
+db_resetters = {
+    "mongo": reset_mongo,
+    "mysql": reset_mysql,
+    "postgres": reset_postgres,
+    "cassandra": reset_cassandra
+}
+
 def prepare_samples(cfg):
     datasets = [int(d["size"]) for d in cfg["datasets"]]
     src_file = cfg["samples"]["src_file"]
@@ -44,6 +51,12 @@ if __name__ == "__main__":
         for dataset in datasets:
             dataset_size = int(dataset["size"])
             dataset_name = dataset["name"]
+
             run_function = db_runners[db]
+            reset_function = db_resetters[db]
+
+            print(f"\n[RESET] Cleaning {db} before dataset **{dataset_name}**...")
+            reset_function()
+
             print(f"\nStarting tests for **{db}**, dataset size **{dataset_name}**...")
             run_function(cfg, dataset_size, dataset_name)
