@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DATASETS=("10k" "100k" "1m")
+DATASETS=("10k" "100k")
 
 for DATASET in "${DATASETS[@]}"; do
   echo "========================================="
@@ -18,7 +18,6 @@ for DATASET in "${DATASETS[@]}"; do
   docker compose exec -T runner bash -lc "cd /app && pip install -r requirements.txt"
 
   echo "4/4 running bench_runner.py for dataset ${DATASET}"
-
   docker compose exec -T runner bash -lc "cd /app && python bench_runner.py --dataset ${DATASET}"
 
   echo "stopping containers and removing volumes (docker compose down -v) after dataset ${DATASET}"
@@ -26,11 +25,11 @@ for DATASET in "${DATASETS[@]}"; do
 done
 
 echo "========================================="
-echo ">>> Running analyze_results.py on accumulated results"
+echo ">>> Running analyze_results.py and plot_results.py on accumulated results"
 echo "========================================="
 
 docker compose up -d runner
-docker compose exec -T runner bash -lc "cd /app && pip install -r requirements.txt && python analyze_results.py"
+docker compose exec -T runner bash -lc "cd /app && pip install -r requirements.txt && python analyze_results.py && python plot_results.py"
 docker compose down -v
 
-echo "done. Results are in runner/results/results.csv"
+echo "done. Results are in runner/results/results.csv and runner/results/charts/"

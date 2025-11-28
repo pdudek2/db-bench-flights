@@ -9,7 +9,7 @@ datasets:
   #   name: 100k
   # - size: 1000000
   #   name: 1M
-repeats: 3
+repeats: 1
 
 queries:
   insert_flight:
