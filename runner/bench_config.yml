@@ -5,10 +5,10 @@ samples:
 datasets:
   - size: 10000
     name: 10k
-  # - size: 100000
-  #   name: 100k
-  # - size: 1000000
-  #   name: 1M
+  - size: 100000
+    name: 100k
+  - size: 1000000
+    name: 1M
 repeats: 1
 
 queries:

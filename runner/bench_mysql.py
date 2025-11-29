@@ -391,11 +391,9 @@ SCENARIOS_MYSQL = [
 
 
 def run_mysql(cfg, dataset_name: str, dataset_size: int):
-    # TODO: create mysql db container and insert data according to dataset_Size
     warmup_mysql()
     for name, fn in SCENARIOS_MYSQL:
         for r in range(1, int(cfg["repeats"]) + 1):
             dt, notes = fn(cfg, r)
             log_result("mysql", dataset_name, name, r, dt, notes)
             print(f"[mysql][{name}][run={r}] {dt:.2f} ms :: {notes}")
-    # TODO: delete mysql database container (with db data)

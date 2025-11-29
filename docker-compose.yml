@@ -8,7 +8,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports: [ "${POSTGRES_PORT}:5432" ]
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql
       - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
     deploy:
       resources: { limits: { cpus: "${DB_CPUS}", memory: "${DB_MEM}" } }

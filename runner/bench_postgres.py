@@ -393,11 +393,9 @@ SCENARIOS_POSTGRES = [
 ]
 
 def run_postgres(cfg, dataset_name: str, dataset_size: int):
-    # TODO: create postgres db container and insert data according to dataset_Size
     warmup_postgres()
     for name, fn in SCENARIOS_POSTGRES:
         for r in range(1, int(cfg["repeats"]) + 1):
             dt, notes = fn(cfg, r)
             log_result("postgres", dataset_name, name, r, dt, notes)
             print(f"[postgres][{name}][run={r}] {dt:.2f} ms :: {notes}")
-    # TODO: delete posgres database container (with db data)
