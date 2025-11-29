@@ -1,10 +1,8 @@
 import mysql.connector
 import os
-from dotenv import load_dotenv
-from common import load_csv, load_airlines, load_airports, load_flights
+from .common import load_csv, load_airlines, load_airports, load_flights
 import argparse
 
-load_dotenv()
 DB_CONFIG = {
     'host': os.getenv('MYSQL_HOST', 'mysql'),
     'port': int(os.getenv('MYSQL_PORT', 3306)),
@@ -25,7 +23,7 @@ MYSQL_FLIGHTS_INSERT_SQL = """
 def get_mysql_last_id(cursor):
     return cursor.lastrowid
 
-def load_data(file_name):
+def import_to_mysql(file_name):
     try:
         df = load_csv(file_name)
     except FileNotFoundError:
@@ -59,4 +57,4 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", required=True)
     a = ap.parse_args()
-    load_data(a.src)
+    import_to_mysql(a.src)

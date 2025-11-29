@@ -2,11 +2,13 @@ import csv
 import yaml
 from pathlib import Path
 
-from bench_cassandra import run_cassandra, reset_cassandra
-from bench_mongo import run_mongo, reset_mongo
+from bench_cassandra import run_cassandra, reset_cassandra, import_to_cassandra
+from bench_mongo import run_mongo, reset_mongo, import_to_mongo
 from bench_mysql import run_mysql, reset_mysql
 from bench_postgres import run_postgres, reset_postgres
 from make_samples import make_samples
+from sql_import.import_postgres import import_to_postgres
+from sql_import.import_mysql import import_to_mysql
 
 RESULTS_PATH = Path("/app/results/results.csv")
 
@@ -25,6 +27,13 @@ db_runners = {
     "mysql": run_mysql,
     "postgres": run_postgres,
     "cassandra": run_cassandra
+}
+
+db_importers = {
+    "mongo": import_to_mongo,
+    "mysql": import_to_mysql,
+    "postgres": import_to_postgres,
+    "cassandra": import_to_cassandra
 }
 
 db_resetters = {
@@ -46,6 +55,7 @@ if __name__ == "__main__":
     ensure_results_header()
     dbs_to_run = cfg["db"]
     datasets = cfg["datasets"]
+    path_to_samples = cfg["samples"]["dst_dir"]
 
     for db in dbs_to_run:
         for dataset in datasets:
@@ -54,9 +64,13 @@ if __name__ == "__main__":
 
             run_function = db_runners[db]
             reset_function = db_resetters[db]
+            import_function = db_importers[db]
 
             print(f"\n[RESET] Cleaning {db} before dataset **{dataset_name}**...")
             reset_function()
+
+            print(f"\n[IMPORTING] Importing to {db} for dataset **{dataset_name}**...")
+            import_function(path_to_samples + "/flights_" + str(dataset_size) + ".csv")
 
             print(f"\nStarting tests for **{db}**, dataset size **{dataset_name}**...")
             run_function(cfg, dataset_size, dataset_name)

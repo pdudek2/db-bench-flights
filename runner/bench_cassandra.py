@@ -19,6 +19,9 @@ def reset_cassandra():
     s.execute("TRUNCATE flights_by_route_day;")
     s.execute("TRUNCATE flights_by_carrier_day;")
 
+def import_to_cassandra(file_name):
+    print(f"\n[IMPORTING] Importing {file_name}...")
+
 def daterange_strs(date_from, date_to):
     d0 = datetime.fromisoformat(date_from)
     d1 = datetime.fromisoformat(date_to)

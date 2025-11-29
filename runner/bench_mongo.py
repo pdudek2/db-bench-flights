@@ -14,6 +14,9 @@ def reset_mongo():
     db = c["flightsdb"]
     db["flights"].delete_many({})
 
+def import_to_mongo(file_name):
+    print(f"\n[IMPORTING] Importing {file_name}...")
+
 def s_mongo_add_flight(cfg):
     """
     Analog mysql_add_flight:

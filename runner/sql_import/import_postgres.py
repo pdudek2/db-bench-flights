@@ -1,10 +1,8 @@
 import psycopg2
 import os
-from dotenv import load_dotenv
-from common import load_csv, load_airlines, load_airports, load_flights
+from .common import load_csv, load_airlines, load_airports, load_flights
 import argparse
 
-load_dotenv()
 DB_CONFIG = {
     'host': os.getenv('POSTGRES_HOST', 'localhost'),
     'port': int(os.getenv('POSTGRES_PORT', 5432)),
@@ -25,7 +23,7 @@ def get_postgres_last_id(cursor):
     result = cursor.fetchone()
     return result[0] if result else None
 
-def load_data(file_name):
+def import_to_postgres(file_name):
     try:
         df = load_csv(file_name)
     except FileNotFoundError:
@@ -64,4 +62,4 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", required=True)
     a = ap.parse_args()
-    load_data(a.src)
+    import_to_postgres(a.src)
