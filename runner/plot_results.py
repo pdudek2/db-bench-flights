@@ -113,6 +113,7 @@ def plot_scenario_lines(df: pd.DataFrame) -> None:
             )
 
         plt.xlabel("Rozmiar próbki (wiersze)")
+        plt.xscale('log')
         plt.ylabel("Średni czas [ms]")
         plt.title(f"{op_name} – średni czas vs. rozmiar danych")
         plt.xticks(
