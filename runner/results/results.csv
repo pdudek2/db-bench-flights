@@ -14109,3 +14109,663 @@ ts,db,dataset,scenario,repeat,elapsed_ms,notes
 2025-11-28T19:29:20.549024,cassandra,10k,cass_rank_punctual_airlines,1,2.57,"month=1, no_results"
 2025-11-28T19:29:20.589965,cassandra,10k,cass_read_by_carrier_day,1,18.15,found=0
 2025-11-28T19:29:20.612030,cassandra,10k,cass_histogram_arr_delay_month,1,2.06,buckets=9
+2025-11-29T18:28:23.207066,mysql,10000,mysql_add_flight,1,1.14,OK
+2025-11-29T18:28:23.209119,mysql,10000,mysql_add_flight,2,0.85,OK
+2025-11-29T18:28:23.211037,mysql,10000,mysql_add_flight,3,1.16,OK
+2025-11-29T18:28:23.212727,mysql,10000,mysql_add_flight,4,1.03,OK
+2025-11-29T18:28:23.214283,mysql,10000,mysql_add_flight,5,0.92,OK
+2025-11-29T18:28:23.215624,mysql,10000,mysql_add_flight,6,0.81,OK
+2025-11-29T18:28:23.216739,mysql,10000,mysql_add_flight,7,0.59,OK
+2025-11-29T18:28:23.218009,mysql,10000,mysql_add_flight,8,0.75,OK
+2025-11-29T18:28:23.219419,mysql,10000,mysql_add_flight,9,0.89,OK
+2025-11-29T18:28:23.220938,mysql,10000,mysql_add_flight,10,1.01,OK
+2025-11-29T18:28:23.222359,mysql,10000,mysql_add_flight,11,0.74,OK
+2025-11-29T18:28:23.223855,mysql,10000,mysql_add_flight,12,1.0,OK
+2025-11-29T18:28:23.225056,mysql,10000,mysql_add_flight_stats,1,0.86,"flight_id=10001, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:28:23.226248,mysql,10000,mysql_add_flight_stats,2,0.88,"flight_id=10002, perf_inserted=1"
+2025-11-29T18:28:23.227673,mysql,10000,mysql_add_flight_stats,3,1.1,"flight_id=10003, perf_inserted=1"
+2025-11-29T18:28:23.229093,mysql,10000,mysql_add_flight_stats,4,0.98,"flight_id=10004, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:28:23.230566,mysql,10000,mysql_add_flight_stats,5,1.06,"flight_id=10005, perf_inserted=1"
+2025-11-29T18:28:23.231606,mysql,10000,mysql_add_flight_stats,6,0.73,"flight_id=10006, perf_inserted=1"
+2025-11-29T18:28:23.232617,mysql,10000,mysql_add_flight_stats,7,0.7,"flight_id=10007, perf_inserted=1"
+2025-11-29T18:28:23.233591,mysql,10000,mysql_add_flight_stats,8,0.68,"flight_id=10008, perf_inserted=1"
+2025-11-29T18:28:23.234569,mysql,10000,mysql_add_flight_stats,9,0.68,"flight_id=10009, perf_inserted=1"
+2025-11-29T18:28:23.236291,mysql,10000,mysql_add_flight_stats,10,1.16,"flight_id=10010, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:28:23.237249,mysql,10000,mysql_add_flight_stats,11,0.67,"flight_id=10011, perf_inserted=1"
+2025-11-29T18:28:23.238302,mysql,10000,mysql_add_flight_stats,12,0.75,"flight_id=10012, perf_inserted=1"
+2025-11-29T18:28:23.246228,mysql,10000,mysql_top_routes_month,1,7.56,DCA-BOS(5);ATL-MSP(4);ORD-PHX(4);DEN-LAS(3);ATL-PHL(3);HNL-OGG(3);ATL-MCO(3);ANC-SEA(3);CLT-BNA(3);CLT-JAX(3)
+2025-11-29T18:28:23.251601,mysql,10000,mysql_top_routes_month,2,4.97,ATL-FLL(3);ATL-RSW(3);DEN-ATL(3);JFK-BOS(3);LAS-ATL(3);LGA-DFW(3);IAH-LGA(3);HNL-ITO(3);DTW-CLT(3);FLL-BOS(3)
+2025-11-29T18:28:23.256923,mysql,10000,mysql_top_routes_month,3,4.91,MCO-ATL(3);MCO-EWR(3);CLT-LGA(3);LGA-FLL(3);BHM-DFW(3);MCO-SJU(3);DTW-ATL(3);LAX-JFK(3);DEN-AUS(3);LAS-BUR(3)
+2025-11-29T18:28:23.262258,mysql,10000,mysql_top_routes_month,4,4.95,SFO-JFK(5);DAL-HOU(4);DFW-LGA(3);DFW-SFO(3);DCA-BOS(3);BOS-LAX(3);EWR-ATL(3);CLT-BHM(3);ATL-CLT(3);ATL-BWI(3)
+2025-11-29T18:28:23.267430,mysql,10000,mysql_top_routes_month,5,4.86,HNL-OGG(4);ATL-MCO(3);CLT-MCO(3);DEN-SAT(3);DFW-LAS(3);ATL-FLL(3);DEN-CMH(3);DEN-RAP(3);ATL-DCA(3);DEN-STL(3)
+2025-11-29T18:28:23.272786,mysql,10000,mysql_top_routes_month,6,5.02,CLT-MCO(4);LAX-HNL(3);DCA-BUF(3);LAX-SJC(3);PDX-MSP(3);HNL-LIH(3);BWI-ATL(3);LAS-LAX(3);ATL-PHX(3);KOA-HNL(3)
+2025-11-29T18:28:23.278039,mysql,10000,mysql_top_routes_month,7,4.83,ORD-LGA(4);ATL-DTW(4);CRP-DFW(3);DEN-ABQ(3);BOS-SFO(3);ATL-LAX(3);AUS-DFW(3);CHS-CLT(3);DEN-BZN(3);ATL-BNA(3)
+2025-11-29T18:28:23.283323,mysql,10000,mysql_top_routes_month,8,4.94,BOS-DEN(4);ORD-LGA(4);BOS-ATL(3);MCO-BNA(3);IAH-ATL(3);MCO-EWR(3);ATL-CVG(3);ORD-LAX(3);DFW-SEA(3);IAH-LAX(3)
+2025-11-29T18:28:23.288586,mysql,10000,mysql_top_routes_month,9,4.84,SEA-GEG(4);ORD-CVG(4);LAX-DFW(3);LGA-ORD(3);DFW-HSV(3);DEN-LAS(3);ATL-EWR(3);DEN-TPA(3);DEN-SEA(3);JFK-LAX(3)
+2025-11-29T18:28:23.293775,mysql,10000,mysql_top_routes_month,10,4.81,MCO-ATL(5);BOS-DCA(4);LIH-HNL(4);LAX-EWR(4);DEN-COS(4);BNA-ORD(3);CMH-ORD(3);OGG-HNL(3);LAS-SAN(3);DEN-MCO(3)
+2025-11-29T18:28:23.299046,mysql,10000,mysql_top_routes_month,11,4.85,HNL-LIH(3);LAS-SFO(3);JFK-RDU(3);JFK-SFO(3);ATL-SFO(3);ATL-LAX(3);IAH-LGA(3);DCA-BOS(3);ATL-CHS(3);DFW-CVG(3)
+2025-11-29T18:28:23.304349,mysql,10000,mysql_top_routes_month,12,4.95,SJU-MCO(6);LGA-ORD(5);AUS-DAL(4);ORD-PIT(4);ABQ-LAX(3);DEN-IAH(3);KOA-HNL(3);HNL-LAX(3);ATL-DFW(3);DFW-DCA(3)
+2025-11-29T18:28:23.308919,mysql,10000,mysql_histogram_arr_delay,1,3.98,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.312586,mysql,10000,mysql_histogram_arr_delay,2,3.35,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.316422,mysql,10000,mysql_histogram_arr_delay,3,3.44,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.320352,mysql,10000,mysql_histogram_arr_delay,4,3.52,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.324075,mysql,10000,mysql_histogram_arr_delay,5,3.35,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.327729,mysql,10000,mysql_histogram_arr_delay,6,3.29,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.331574,mysql,10000,mysql_histogram_arr_delay,7,3.39,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.335192,mysql,10000,mysql_histogram_arr_delay,8,3.31,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.338872,mysql,10000,mysql_histogram_arr_delay,9,3.33,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.342712,mysql,10000,mysql_histogram_arr_delay,10,3.29,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.346354,mysql,10000,mysql_histogram_arr_delay,11,3.33,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.350068,mysql,10000,mysql_histogram_arr_delay,12,3.23,"buckets=9, total in first bucket=296"
+2025-11-29T18:28:23.351025,mysql,10000,mysql_find_route_with_stats,1,0.39,count=0
+2025-11-29T18:28:23.351574,mysql,10000,mysql_find_route_with_stats,2,0.22,count=0
+2025-11-29T18:28:23.352157,mysql,10000,mysql_find_route_with_stats,3,0.24,count=0
+2025-11-29T18:28:23.352687,mysql,10000,mysql_find_route_with_stats,4,0.23,count=0
+2025-11-29T18:28:23.353198,mysql,10000,mysql_find_route_with_stats,5,0.19,count=0
+2025-11-29T18:28:23.353683,mysql,10000,mysql_find_route_with_stats,6,0.17,count=0
+2025-11-29T18:28:23.354194,mysql,10000,mysql_find_route_with_stats,7,0.18,count=0
+2025-11-29T18:28:23.354743,mysql,10000,mysql_find_route_with_stats,8,0.19,count=0
+2025-11-29T18:28:23.355208,mysql,10000,mysql_find_route_with_stats,9,0.17,count=0
+2025-11-29T18:28:23.355688,mysql,10000,mysql_find_route_with_stats,10,0.16,count=0
+2025-11-29T18:28:23.356226,mysql,10000,mysql_find_route_with_stats,11,0.2,count=0
+2025-11-29T18:28:23.356762,mysql,10000,mysql_find_route_with_stats,12,0.22,count=1
+2025-11-29T18:28:23.360133,mysql,10000,mysql_rank_punctual_airlines,1,3.04,"month=1, most_punctual=G4"
+2025-11-29T18:28:23.362258,mysql,10000,mysql_rank_punctual_airlines,2,1.78,"month=2, most_punctual=9E"
+2025-11-29T18:28:23.364308,mysql,10000,mysql_rank_punctual_airlines,3,1.76,"month=3, most_punctual=9E"
+2025-11-29T18:28:23.366314,mysql,10000,mysql_rank_punctual_airlines,4,1.71,"month=4, most_punctual=YX"
+2025-11-29T18:28:23.368360,mysql,10000,mysql_rank_punctual_airlines,5,1.71,"month=5, most_punctual=AS"
+2025-11-29T18:28:23.370492,mysql,10000,mysql_rank_punctual_airlines,6,1.81,"month=6, most_punctual=OH"
+2025-11-29T18:28:23.372641,mysql,10000,mysql_rank_punctual_airlines,7,1.82,"month=7, most_punctual=WN"
+2025-11-29T18:28:23.374777,mysql,10000,mysql_rank_punctual_airlines,8,1.78,"month=8, most_punctual=MQ"
+2025-11-29T18:28:23.376832,mysql,10000,mysql_rank_punctual_airlines,9,1.72,"month=9, most_punctual=9E"
+2025-11-29T18:28:23.378856,mysql,10000,mysql_rank_punctual_airlines,10,1.7,"month=10, most_punctual=YX"
+2025-11-29T18:28:23.380853,mysql,10000,mysql_rank_punctual_airlines,11,1.68,"month=11, most_punctual=YX"
+2025-11-29T18:28:23.382849,mysql,10000,mysql_rank_punctual_airlines,12,1.68,"month=12, most_punctual=F9"
+2025-11-29T18:28:49.083344,mysql,100000,mysql_add_flight,1,0.79,OK
+2025-11-29T18:28:49.084943,mysql,100000,mysql_add_flight,2,0.57,OK
+2025-11-29T18:28:49.086431,mysql,100000,mysql_add_flight,3,0.7,OK
+2025-11-29T18:28:49.088821,mysql,100000,mysql_add_flight,4,1.59,OK
+2025-11-29T18:28:49.090169,mysql,100000,mysql_add_flight,5,0.69,OK
+2025-11-29T18:28:49.091363,mysql,100000,mysql_add_flight,6,0.66,OK
+2025-11-29T18:28:49.092509,mysql,100000,mysql_add_flight,7,0.66,OK
+2025-11-29T18:28:49.093661,mysql,100000,mysql_add_flight,8,0.59,OK
+2025-11-29T18:28:49.094841,mysql,100000,mysql_add_flight,9,0.63,OK
+2025-11-29T18:28:49.096232,mysql,100000,mysql_add_flight,10,0.53,OK
+2025-11-29T18:28:49.097435,mysql,100000,mysql_add_flight,11,0.7,OK
+2025-11-29T18:28:49.098485,mysql,100000,mysql_add_flight,12,0.52,OK
+2025-11-29T18:28:49.099699,mysql,100000,mysql_add_flight_stats,1,0.87,"flight_id=100001, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:28:49.100957,mysql,100000,mysql_add_flight_stats,2,0.93,"flight_id=100002, perf_inserted=1"
+2025-11-29T18:28:49.102221,mysql,100000,mysql_add_flight_stats,3,0.95,"flight_id=100003, perf_inserted=1"
+2025-11-29T18:28:49.103224,mysql,100000,mysql_add_flight_stats,4,0.69,"flight_id=100004, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:28:49.104102,mysql,100000,mysql_add_flight_stats,5,0.55,"flight_id=100005, perf_inserted=1"
+2025-11-29T18:28:49.105094,mysql,100000,mysql_add_flight_stats,6,0.68,"flight_id=100006, perf_inserted=1"
+2025-11-29T18:28:49.106295,mysql,100000,mysql_add_flight_stats,7,0.85,"flight_id=100007, perf_inserted=1"
+2025-11-29T18:28:49.107354,mysql,100000,mysql_add_flight_stats,8,0.75,"flight_id=100008, perf_inserted=1"
+2025-11-29T18:28:49.108348,mysql,100000,mysql_add_flight_stats,9,0.7,"flight_id=100009, perf_inserted=1"
+2025-11-29T18:28:49.109732,mysql,100000,mysql_add_flight_stats,10,1.08,"flight_id=100010, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:28:49.110802,mysql,100000,mysql_add_flight_stats,11,0.74,"flight_id=100011, perf_inserted=1"
+2025-11-29T18:28:49.111745,mysql,100000,mysql_add_flight_stats,12,0.63,"flight_id=100012, perf_inserted=1"
+2025-11-29T18:28:49.167946,mysql,100000,mysql_top_routes_month,1,55.6,DCA-BOS(20);BOS-DCA(18);ATL-DCA(16);DEN-PHX(16);LAX-LAS(14);ORD-LGA(14);DEN-LAS(14);DFW-LGA(14);HNL-LIH(13);ITO-HNL(13)
+2025-11-29T18:28:49.220871,mysql,100000,mysql_top_routes_month,2,52.12,OGG-HNL(16);BOS-DCA(15);DFW-LAS(15);ATL-MCO(14);BOS-ORD(14);MCO-ATL(14);DEN-SLC(13);LAX-SFO(13);ATL-FLL(13);PHX-DFW(13)
+2025-11-29T18:28:49.320240,mysql,100000,mysql_top_routes_month,3,98.07,DEN-PHX(18);ATL-FLL(17);ATL-MIA(17);OGG-HNL(16);MCO-ATL(16);LAX-LAS(16);SAN-LAS(15);LAS-LAX(15);MCO-SJU(15);ORD-LGA(15)
+2025-11-29T18:28:49.391305,mysql,100000,mysql_top_routes_month,4,69.7,HNL-KOA(17);JFK-LAX(17);LGA-BOS(17);DEN-LAS(16);LAX-JFK(15);OGG-HNL(15);LAX-DFW(15);LGA-ORD(14);PHX-SEA(14);EWR-MCO(13)
+2025-11-29T18:28:49.451212,mysql,100000,mysql_top_routes_month,5,59.14,DCA-BOS(21);SFO-LAX(18);ATL-MCO(16);BOS-LGA(16);LAX-LAS(15);ORD-PHX(15);LAS-DEN(15);OGG-HNL(14);MCO-ATL(14);DEN-PHX(14)
+2025-11-29T18:28:49.512798,mysql,100000,mysql_top_routes_month,6,60.77,SEA-ANC(18);DEN-LAS(16);SJU-MCO(16);PHX-SEA(15);LAS-SEA(15);SEA-ORD(14);LAX-JFK(14);ATL-IAH(14);LAX-SFO(14);LAS-LAX(14)
+2025-11-29T18:28:49.566245,mysql,100000,mysql_top_routes_month,7,52.65,ORD-LGA(20);OGG-HNL(18);LGA-ATL(16);HNL-OGG(15);LAX-PHX(15);DFW-ORD(14);SFO-SEA(14);SFO-LAX(14);PHX-DEN(14);LGA-RDU(13)
+2025-11-29T18:28:49.619501,mysql,100000,mysql_top_routes_month,8,52.48,SFO-SEA(18);LGA-ORD(16);LAS-LAX(15);HNL-OGG(15);KOA-HNL(15);ANC-SEA(15);SEA-DEN(14);LAX-PHX(13);PHX-LAS(13);SEA-DFW(13)
+2025-11-29T18:28:49.672508,mysql,100000,mysql_top_routes_month,9,52.25,ORD-LGA(19);LGA-ORD(17);DCA-BOS(17);ORD-LAX(16);SLC-DEN(15);SEA-ANC(15);SFO-LAX(15);ATL-DCA(15);ANC-SEA(15);LAX-SFO(14)
+2025-11-29T18:28:49.724619,mysql,100000,mysql_top_routes_month,10,51.34,OGG-HNL(20);SFO-LAX(18);DEN-PHX(18);LIH-HNL(16);LAX-SFO(16);DCA-BOS(16);BOS-DCA(16);DTW-DFW(15);BOS-ORD(14);MCO-ATL(14)
+2025-11-29T18:28:49.776808,mysql,100000,mysql_top_routes_month,11,51.37,DCA-BOS(17);OGG-HNL(15);DEN-LAX(15);LIH-HNL(15);LGA-ORD(15);JFK-LAX(14);SFO-LAX(14);LAX-LAS(14);DEN-PHX(14);DEN-LAS(14)
+2025-11-29T18:28:49.828131,mysql,100000,mysql_top_routes_month,12,50.56,LGA-ORD(19);SFO-LAX(18);LAX-JFK(16);LAX-LAS(16);MCO-EWR(15);HNL-LIH(15);ATL-DEN(15);KOA-HNL(15);HNL-OGG(14);LAX-SFO(14)
+2025-11-29T18:28:49.860656,mysql,100000,mysql_histogram_arr_delay,1,31.77,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:49.892342,mysql,100000,mysql_histogram_arr_delay,2,31.01,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:49.923998,mysql,100000,mysql_histogram_arr_delay,3,31.05,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:49.956067,mysql,100000,mysql_histogram_arr_delay,4,31.47,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:49.990354,mysql,100000,mysql_histogram_arr_delay,5,33.64,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:50.025561,mysql,100000,mysql_histogram_arr_delay,6,34.37,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:50.072380,mysql,100000,mysql_histogram_arr_delay,7,45.05,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:50.110036,mysql,100000,mysql_histogram_arr_delay,8,36.25,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:50.147002,mysql,100000,mysql_histogram_arr_delay,9,36.0,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:50.182575,mysql,100000,mysql_histogram_arr_delay,10,34.68,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:50.217102,mysql,100000,mysql_histogram_arr_delay,11,33.64,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:50.251786,mysql,100000,mysql_histogram_arr_delay,12,33.72,"buckets=9, total in first bucket=2953"
+2025-11-29T18:28:50.253144,mysql,100000,mysql_find_route_with_stats,1,0.67,count=3
+2025-11-29T18:28:50.253933,mysql,100000,mysql_find_route_with_stats,2,0.37,count=2
+2025-11-29T18:28:50.254562,mysql,100000,mysql_find_route_with_stats,3,0.23,count=0
+2025-11-29T18:28:50.255185,mysql,100000,mysql_find_route_with_stats,4,0.25,count=2
+2025-11-29T18:28:50.255893,mysql,100000,mysql_find_route_with_stats,5,0.32,count=2
+2025-11-29T18:28:50.256789,mysql,100000,mysql_find_route_with_stats,6,0.47,count=1
+2025-11-29T18:28:50.257622,mysql,100000,mysql_find_route_with_stats,7,0.31,count=0
+2025-11-29T18:28:50.258206,mysql,100000,mysql_find_route_with_stats,8,0.23,count=0
+2025-11-29T18:28:50.258774,mysql,100000,mysql_find_route_with_stats,9,0.24,count=2
+2025-11-29T18:28:50.259309,mysql,100000,mysql_find_route_with_stats,10,0.22,count=1
+2025-11-29T18:28:50.259814,mysql,100000,mysql_find_route_with_stats,11,0.18,count=1
+2025-11-29T18:28:50.260385,mysql,100000,mysql_find_route_with_stats,12,0.25,count=2
+2025-11-29T18:28:50.279700,mysql,100000,mysql_rank_punctual_airlines,1,18.66,"month=1, most_punctual=G4"
+2025-11-29T18:28:50.297456,mysql,100000,mysql_rank_punctual_airlines,2,16.97,"month=2, most_punctual=9E"
+2025-11-29T18:28:50.316775,mysql,100000,mysql_rank_punctual_airlines,3,18.49,"month=3, most_punctual=YX"
+2025-11-29T18:28:50.335015,mysql,100000,mysql_rank_punctual_airlines,4,17.61,"month=4, most_punctual=G4"
+2025-11-29T18:28:50.353530,mysql,100000,mysql_rank_punctual_airlines,5,17.82,"month=5, most_punctual=G4"
+2025-11-29T18:28:50.371884,mysql,100000,mysql_rank_punctual_airlines,6,17.63,"month=6, most_punctual=HA"
+2025-11-29T18:28:50.389527,mysql,100000,mysql_rank_punctual_airlines,7,17.0,"month=7, most_punctual=HA"
+2025-11-29T18:28:50.407081,mysql,100000,mysql_rank_punctual_airlines,8,16.89,"month=8, most_punctual=DL"
+2025-11-29T18:28:50.424639,mysql,100000,mysql_rank_punctual_airlines,9,16.9,"month=9, most_punctual=YX"
+2025-11-29T18:28:50.442261,mysql,100000,mysql_rank_punctual_airlines,10,16.98,"month=10, most_punctual=YX"
+2025-11-29T18:28:50.459256,mysql,100000,mysql_rank_punctual_airlines,11,16.38,"month=11, most_punctual=B6"
+2025-11-29T18:28:50.476149,mysql,100000,mysql_rank_punctual_airlines,12,16.37,"month=12, most_punctual=DL"
+2025-11-29T18:34:08.244589,mysql,1000000,mysql_add_flight,1,4.39,OK
+2025-11-29T18:34:08.247932,mysql,1000000,mysql_add_flight,2,1.68,OK
+2025-11-29T18:34:08.250346,mysql,1000000,mysql_add_flight,3,1.18,OK
+2025-11-29T18:34:08.253299,mysql,1000000,mysql_add_flight,4,1.26,OK
+2025-11-29T18:34:08.255112,mysql,1000000,mysql_add_flight,5,0.74,OK
+2025-11-29T18:34:08.256553,mysql,1000000,mysql_add_flight,6,0.64,OK
+2025-11-29T18:34:08.258492,mysql,1000000,mysql_add_flight,7,0.84,OK
+2025-11-29T18:34:08.259914,mysql,1000000,mysql_add_flight,8,0.64,OK
+2025-11-29T18:34:08.261266,mysql,1000000,mysql_add_flight,9,0.7,OK
+2025-11-29T18:34:08.262712,mysql,1000000,mysql_add_flight,10,0.62,OK
+2025-11-29T18:34:08.265391,mysql,1000000,mysql_add_flight,11,1.48,OK
+2025-11-29T18:34:08.269483,mysql,1000000,mysql_add_flight,12,1.18,OK
+2025-11-29T18:34:08.271509,mysql,1000000,mysql_add_flight_stats,1,1.41,"flight_id=1000001, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:34:08.272958,mysql,1000000,mysql_add_flight_stats,2,0.87,"flight_id=1000002, perf_inserted=1"
+2025-11-29T18:34:08.275011,mysql,1000000,mysql_add_flight_stats,3,1.22,"flight_id=1000003, perf_inserted=1"
+2025-11-29T18:34:08.276296,mysql,1000000,mysql_add_flight_stats,4,0.85,"flight_id=1000004, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:34:08.277294,mysql,1000000,mysql_add_flight_stats,5,0.64,"flight_id=1000005, perf_inserted=1"
+2025-11-29T18:34:08.278444,mysql,1000000,mysql_add_flight_stats,6,0.69,"flight_id=1000006, perf_inserted=1"
+2025-11-29T18:34:08.279405,mysql,1000000,mysql_add_flight_stats,7,0.6,"flight_id=1000007, perf_inserted=1"
+2025-11-29T18:34:08.280495,mysql,1000000,mysql_add_flight_stats,8,0.75,"flight_id=1000008, perf_inserted=1"
+2025-11-29T18:34:08.281452,mysql,1000000,mysql_add_flight_stats,9,0.64,"flight_id=1000009, perf_inserted=1"
+2025-11-29T18:34:08.282367,mysql,1000000,mysql_add_flight_stats,10,0.59,"flight_id=1000010, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:34:08.283649,mysql,1000000,mysql_add_flight_stats,11,0.83,"flight_id=1000011, perf_inserted=1"
+2025-11-29T18:34:08.285128,mysql,1000000,mysql_add_flight_stats,12,0.98,"flight_id=1000012, perf_inserted=1"
+2025-11-29T18:34:13.961511,mysql,1000000,mysql_top_routes_month,1,5675.32,LAX-SFO(134);OGG-HNL(132);HNL-OGG(130);ATL-MCO(128);HNL-LIH(120);LGA-ORD(117);DEN-PHX(116);LIH-HNL(115);MCO-ATL(112);BOS-DCA(111)
+2025-11-29T18:34:18.401471,mysql,1000000,mysql_top_routes_month,2,4438.85,OGG-HNL(125);ATL-MCO(120);ORD-LGA(119);HNL-OGG(118);ATL-FLL(115);DEN-PHX(114);DEN-LAS(113);BOS-DCA(109);LAX-SFO(107);MCO-ATL(107)
+2025-11-29T18:34:22.924666,mysql,1000000,mysql_top_routes_month,3,4521.96,SFO-LAX(152);OGG-HNL(144);HNL-OGG(135);DEN-PHX(135);ORD-LGA(134);ATL-MCO(128);LAS-DEN(124);LGA-ORD(124);BOS-DCA(124);PHX-DEN(121)
+2025-11-29T18:34:27.409796,mysql,1000000,mysql_top_routes_month,4,4484.07,LAX-SFO(147);LGA-ORD(135);DEN-PHX(130);SFO-LAX(126);HNL-OGG(126);OGG-HNL(124);LAS-DEN(122);ORD-LGA(121);MCO-ATL(119);HNL-LIH(119)
+2025-11-29T18:34:31.876906,mysql,1000000,mysql_top_routes_month,5,4466.18,SFO-LAX(156);HNL-OGG(146);LAX-SFO(140);OGG-HNL(139);LGA-ORD(138);DCA-BOS(138);LAX-LAS(132);DEN-PHX(123);ORD-LGA(123);JFK-LAX(118)
+2025-11-29T18:34:36.012721,mysql,1000000,mysql_top_routes_month,6,4134.13,LAX-SFO(142);OGG-HNL(136);HNL-OGG(127);LAS-LAX(127);LGA-ORD(122);LAX-LAS(121);SEA-ANC(119);DCA-BOS(117);PHX-DEN(111);JFK-LAX(110)
+2025-11-29T18:34:40.630675,mysql,1000000,mysql_top_routes_month,7,4616.94,ORD-LGA(147);LAX-SFO(145);OGG-HNL(140);SEA-ANC(135);HNL-OGG(130);LAX-LAS(127);LGA-ORD(124);KOA-HNL(121);JFK-LAX(119);LGA-ATL(119)
+2025-11-29T18:34:45.051443,mysql,1000000,mysql_top_routes_month,8,4419.18,SFO-LAX(153);LAX-SFO(151);HNL-OGG(146);LGA-ORD(145);ORD-LGA(139);OGG-HNL(138);LAX-JFK(132);JFK-LAX(131);LAS-LAX(130);SEA-ANC(127)
+2025-11-29T18:34:49.525279,mysql,1000000,mysql_top_routes_month,9,4473.07,SFO-LAX(155);DCA-BOS(135);LAX-SFO(133);HNL-OGG(130);LGA-ORD(124);OGG-HNL(123);ORD-LGA(119);LGA-ATL(118);LAX-LAS(118);LAX-JFK(118)
+2025-11-29T18:34:53.905959,mysql,1000000,mysql_top_routes_month,10,4379.8,LAX-SFO(168);SFO-LAX(165);DCA-BOS(141);OGG-HNL(136);ORD-LGA(136);JFK-LAX(131);LAS-LAX(129);LGA-ORD(128);BOS-DCA(127);DEN-PHX(126)
+2025-11-29T18:34:58.214823,mysql,1000000,mysql_top_routes_month,11,4308.09,SFO-LAX(148);LAX-SFO(146);LGA-ORD(139);DEN-PHX(131);OGG-HNL(129);HNL-OGG(128);JFK-LAX(127);LIH-HNL(118);LAS-LAX(118);DCA-BOS(118)
+2025-11-29T18:35:02.713976,mysql,1000000,mysql_top_routes_month,12,4498.37,LAX-SFO(142);SFO-LAX(141);HNL-OGG(141);LAX-JFK(131);OGG-HNL(131);LGA-ORD(130);ORD-LGA(120);DEN-PHX(116);MCO-ATL(116);ATL-MCO(115)
+2025-11-29T18:35:03.057037,mysql,1000000,mysql_histogram_arr_delay,1,342.1,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:03.363851,mysql,1000000,mysql_histogram_arr_delay,2,306.04,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:03.673015,mysql,1000000,mysql_histogram_arr_delay,3,308.35,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:03.976774,mysql,1000000,mysql_histogram_arr_delay,4,302.99,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:04.278990,mysql,1000000,mysql_histogram_arr_delay,5,301.3,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:04.587793,mysql,1000000,mysql_histogram_arr_delay,6,308.0,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:04.893808,mysql,1000000,mysql_histogram_arr_delay,7,305.24,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:05.202851,mysql,1000000,mysql_histogram_arr_delay,8,308.25,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:05.507854,mysql,1000000,mysql_histogram_arr_delay,9,304.28,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:05.818074,mysql,1000000,mysql_histogram_arr_delay,10,309.35,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:06.138290,mysql,1000000,mysql_histogram_arr_delay,11,319.15,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:06.445538,mysql,1000000,mysql_histogram_arr_delay,12,306.36,"buckets=9, total in first bucket=29072"
+2025-11-29T18:35:06.453414,mysql,1000000,mysql_find_route_with_stats,1,7.27,count=19
+2025-11-29T18:35:06.459283,mysql,1000000,mysql_find_route_with_stats,2,5.42,count=25
+2025-11-29T18:35:06.463791,mysql,1000000,mysql_find_route_with_stats,3,4.11,count=18
+2025-11-29T18:35:06.469265,mysql,1000000,mysql_find_route_with_stats,4,5.08,count=21
+2025-11-29T18:35:06.473812,mysql,1000000,mysql_find_route_with_stats,5,4.12,count=19
+2025-11-29T18:35:06.478399,mysql,1000000,mysql_find_route_with_stats,6,4.21,count=18
+2025-11-29T18:35:06.480845,mysql,1000000,mysql_find_route_with_stats,7,2.06,count=6
+2025-11-29T18:35:06.482932,mysql,1000000,mysql_find_route_with_stats,8,1.75,count=7
+2025-11-29T18:35:06.486508,mysql,1000000,mysql_find_route_with_stats,9,3.08,count=17
+2025-11-29T18:35:06.489140,mysql,1000000,mysql_find_route_with_stats,10,2.28,count=7
+2025-11-29T18:35:06.492039,mysql,1000000,mysql_find_route_with_stats,11,2.57,count=15
+2025-11-29T18:35:06.494429,mysql,1000000,mysql_find_route_with_stats,12,2.09,count=7
+2025-11-29T18:35:07.598462,mysql,1000000,mysql_rank_punctual_airlines,1,1103.56,"month=1, most_punctual=DL"
+2025-11-29T18:35:08.417875,mysql,1000000,mysql_rank_punctual_airlines,2,818.49,"month=2, most_punctual=YX"
+2025-11-29T18:35:09.342379,mysql,1000000,mysql_rank_punctual_airlines,3,923.63,"month=3, most_punctual=YX"
+2025-11-29T18:35:10.269934,mysql,1000000,mysql_rank_punctual_airlines,4,926.63,"month=4, most_punctual=G4"
+2025-11-29T18:35:11.181475,mysql,1000000,mysql_rank_punctual_airlines,5,910.71,"month=5, most_punctual=YX"
+2025-11-29T18:35:12.055435,mysql,1000000,mysql_rank_punctual_airlines,6,873.27,"month=6, most_punctual=HA"
+2025-11-29T18:35:12.975469,mysql,1000000,mysql_rank_punctual_airlines,7,919.27,"month=7, most_punctual=HA"
+2025-11-29T18:35:13.790406,mysql,1000000,mysql_rank_punctual_airlines,8,813.9,"month=8, most_punctual=HA"
+2025-11-29T18:35:14.671410,mysql,1000000,mysql_rank_punctual_airlines,9,878.09,"month=9, most_punctual=YX"
+2025-11-29T18:35:15.672755,mysql,1000000,mysql_rank_punctual_airlines,10,1000.34,"month=10, most_punctual=YX"
+2025-11-29T18:35:16.543433,mysql,1000000,mysql_rank_punctual_airlines,11,869.74,"month=11, most_punctual=9E"
+2025-11-29T18:35:17.429786,mysql,1000000,mysql_rank_punctual_airlines,12,885.5,"month=12, most_punctual=YX"
+2025-11-29T18:35:20.374679,postgres,10000,postgres_add_flight,1,0.63,inserted_id=10001
+2025-11-29T18:35:20.375616,postgres,10000,postgres_add_flight,2,0.26,inserted_id=10002
+2025-11-29T18:35:20.376381,postgres,10000,postgres_add_flight,3,0.38,inserted_id=10003
+2025-11-29T18:35:20.377040,postgres,10000,postgres_add_flight,4,0.26,inserted_id=10004
+2025-11-29T18:35:20.377558,postgres,10000,postgres_add_flight,5,0.2,inserted_id=10005
+2025-11-29T18:35:20.378173,postgres,10000,postgres_add_flight,6,0.28,inserted_id=10006
+2025-11-29T18:35:20.378801,postgres,10000,postgres_add_flight,7,0.26,inserted_id=10007
+2025-11-29T18:35:20.379401,postgres,10000,postgres_add_flight,8,0.23,inserted_id=10008
+2025-11-29T18:35:20.379909,postgres,10000,postgres_add_flight,9,0.19,inserted_id=10009
+2025-11-29T18:35:20.380512,postgres,10000,postgres_add_flight,10,0.24,inserted_id=10010
+2025-11-29T18:35:20.381142,postgres,10000,postgres_add_flight,11,0.23,inserted_id=10011
+2025-11-29T18:35:20.381665,postgres,10000,postgres_add_flight,12,0.19,inserted_id=10012
+2025-11-29T18:35:20.385203,postgres,10000,postgres_add_flight_stats,1,0.66,"flight_id=10012, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:35:20.387256,postgres,10000,postgres_add_flight_stats,2,0.37,"flight_id=10011, perf_inserted=1"
+2025-11-29T18:35:20.388796,postgres,10000,postgres_add_flight_stats,3,0.24,"flight_id=10010, perf_inserted=1"
+2025-11-29T18:35:20.390407,postgres,10000,postgres_add_flight_stats,4,0.34,"flight_id=10009, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:35:20.391875,postgres,10000,postgres_add_flight_stats,5,0.25,"flight_id=10008, perf_inserted=1"
+2025-11-29T18:35:20.393471,postgres,10000,postgres_add_flight_stats,6,0.32,"flight_id=10007, perf_inserted=1"
+2025-11-29T18:35:20.394940,postgres,10000,postgres_add_flight_stats,7,0.23,"flight_id=10006, perf_inserted=1"
+2025-11-29T18:35:20.396398,postgres,10000,postgres_add_flight_stats,8,0.23,"flight_id=10005, perf_inserted=1"
+2025-11-29T18:35:20.397820,postgres,10000,postgres_add_flight_stats,9,0.24,"flight_id=10004, perf_inserted=1"
+2025-11-29T18:35:20.399406,postgres,10000,postgres_add_flight_stats,10,0.28,"flight_id=10003, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:35:20.400917,postgres,10000,postgres_add_flight_stats,11,0.23,"flight_id=10002, perf_inserted=1"
+2025-11-29T18:35:20.402426,postgres,10000,postgres_add_flight_stats,12,0.24,"flight_id=10001, perf_inserted=1"
+2025-11-29T18:35:20.406285,postgres,10000,postgres_top_routes_month,1,3.67,DCA-BOS(5);ATL-MSP(4);ORD-PHX(4);DEN-LAS(3);CLT-BNA(3);ATL-MCO(3);ATL-PHL(3);ANC-SEA(3);BOS-DCA(3);CLT-JAX(3)
+2025-11-29T18:35:20.407133,postgres,10000,postgres_top_routes_month,2,0.71,HNL-ITO(3);LAS-ATL(3);DTW-CLT(3);FLL-BOS(3);IAH-LGA(3);JFK-BOS(3);ATL-RSW(3);DEN-ATL(3);ATL-FLL(3);LGA-DFW(3)
+2025-11-29T18:35:20.408047,postgres,10000,postgres_top_routes_month,3,0.76,LAX-JFK(3);MCO-EWR(3);DEN-AUS(3);LAS-BUR(3);LGA-FLL(3);MCO-ATL(3);BHM-DFW(3);CLT-LGA(3);DTW-ATL(3);MCO-SJU(3)
+2025-11-29T18:35:20.408886,postgres,10000,postgres_top_routes_month,4,0.71,SFO-JFK(5);DAL-HOU(4);DFW-SFO(3);CLT-BHM(3);DEN-SLC(3);DFW-LGA(3);ATL-CLT(3);ATL-BWI(3);BOS-LAX(3);DCA-BOS(3)
+2025-11-29T18:35:20.409728,postgres,10000,postgres_top_routes_month,5,0.72,HNL-OGG(4);DFW-LAS(3);CLT-MCO(3);ATL-MCO(3);DEN-SAT(3);DEN-STL(3);DEN-CMH(3);ATL-DCA(3);ATL-FLL(3);DEN-RAP(3)
+2025-11-29T18:35:20.410538,postgres,10000,postgres_top_routes_month,6,0.68,CLT-MCO(4);LAX-SJC(3);DCA-BUF(3);KOA-HNL(3);BWI-ATL(3);LAX-HNL(3);LAS-LAX(3);ATL-PHX(3);HNL-LIH(3);PDX-MSP(3)
+2025-11-29T18:35:20.411487,postgres,10000,postgres_top_routes_month,7,0.78,ORD-LGA(4);ATL-DTW(4);DEN-ABQ(3);BOS-SFO(3);CLT-DFW(3);CRP-DFW(3);ATL-BNA(3);AUS-DFW(3);ATL-LAX(3);CHS-CLT(3)
+2025-11-29T18:35:20.412311,postgres,10000,postgres_top_routes_month,8,0.7,ORD-LGA(4);BOS-DEN(4);MCO-EWR(3);IAH-ATL(3);LAX-IAH(3);MCO-BNA(3);BOS-ATL(3);DFW-SEA(3);ATL-CVG(3);IAH-LAX(3)
+2025-11-29T18:35:20.413155,postgres,10000,postgres_top_routes_month,9,0.72,ORD-CVG(4);SEA-GEG(4);LAX-DFW(3);DEN-TPA(3);GEG-SEA(3);JFK-LAX(3);DEN-SAN(3);DEN-LAS(3);ATL-EWR(3);DEN-SEA(3)
+2025-11-29T18:35:20.414004,postgres,10000,postgres_top_routes_month,10,0.7,MCO-ATL(5);LIH-HNL(4);LAX-EWR(4);DEN-COS(4);BOS-DCA(4);BNA-ORD(3);LAS-SAN(3);CMH-ORD(3);DEN-MCO(3);OGG-HNL(3)
+2025-11-29T18:35:20.414832,postgres,10000,postgres_top_routes_month,11,0.7,IAH-LGA(3);JFK-SFO(3);DFW-CVG(3);HNL-LIH(3);ATL-LAX(3);JFK-RDU(3);ATL-SFO(3);DCA-BOS(3);ATL-CHS(3);LAS-SFO(3)
+2025-11-29T18:35:20.415649,postgres,10000,postgres_top_routes_month,12,0.7,SJU-MCO(6);LGA-ORD(5);AUS-DAL(4);ORD-PIT(4);KOA-HNL(3);HNL-LIH(3);DFW-DCA(3);ATL-DFW(3);DEN-IAH(3);ABQ-LAX(3)
+2025-11-29T18:35:20.417711,postgres,10000,postgres_histogram_arr_delay,1,1.92,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.419061,postgres,10000,postgres_histogram_arr_delay,2,1.23,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.420432,postgres,10000,postgres_histogram_arr_delay,3,1.25,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.421826,postgres,10000,postgres_histogram_arr_delay,4,1.22,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.423208,postgres,10000,postgres_histogram_arr_delay,5,1.26,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.424542,postgres,10000,postgres_histogram_arr_delay,6,1.21,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.425862,postgres,10000,postgres_histogram_arr_delay,7,1.2,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.427253,postgres,10000,postgres_histogram_arr_delay,8,1.29,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.428572,postgres,10000,postgres_histogram_arr_delay,9,1.21,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.429948,postgres,10000,postgres_histogram_arr_delay,10,1.27,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.431271,postgres,10000,postgres_histogram_arr_delay,11,1.22,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.432767,postgres,10000,postgres_histogram_arr_delay,12,1.31,"buckets=9, total_in_first=296"
+2025-11-29T18:35:20.433493,postgres,10000,postgres_find_route_with_stats,1,0.57,count=0
+2025-11-29T18:35:20.433935,postgres,10000,postgres_find_route_with_stats,2,0.31,count=0
+2025-11-29T18:35:20.434361,postgres,10000,postgres_find_route_with_stats,3,0.33,count=0
+2025-11-29T18:35:20.434647,postgres,10000,postgres_find_route_with_stats,4,0.2,count=0
+2025-11-29T18:35:20.434936,postgres,10000,postgres_find_route_with_stats,5,0.19,count=0
+2025-11-29T18:35:20.435321,postgres,10000,postgres_find_route_with_stats,6,0.23,count=0
+2025-11-29T18:35:20.435739,postgres,10000,postgres_find_route_with_stats,7,0.29,count=0
+2025-11-29T18:35:20.436100,postgres,10000,postgres_find_route_with_stats,8,0.25,count=0
+2025-11-29T18:35:20.436458,postgres,10000,postgres_find_route_with_stats,9,0.23,count=0
+2025-11-29T18:35:20.436763,postgres,10000,postgres_find_route_with_stats,10,0.2,count=0
+2025-11-29T18:35:20.437109,postgres,10000,postgres_find_route_with_stats,11,0.23,count=0
+2025-11-29T18:35:20.437472,postgres,10000,postgres_find_route_with_stats,12,0.26,count=1
+2025-11-29T18:35:20.439478,postgres,10000,postgres_rank_punctual_airlines,1,1.88,"month=1, most_punctual=G4"
+2025-11-29T18:35:20.440585,postgres,10000,postgres_rank_punctual_airlines,2,0.94,"month=2, most_punctual=9E"
+2025-11-29T18:35:20.441803,postgres,10000,postgres_rank_punctual_airlines,3,1.08,"month=3, most_punctual=9E"
+2025-11-29T18:35:20.443015,postgres,10000,postgres_rank_punctual_airlines,4,1.07,"month=4, most_punctual=YX"
+2025-11-29T18:35:20.444172,postgres,10000,postgres_rank_punctual_airlines,5,0.98,"month=5, most_punctual=AS"
+2025-11-29T18:35:20.445285,postgres,10000,postgres_rank_punctual_airlines,6,0.97,"month=6, most_punctual=OH"
+2025-11-29T18:35:20.446348,postgres,10000,postgres_rank_punctual_airlines,7,0.95,"month=7, most_punctual=WN"
+2025-11-29T18:35:20.447509,postgres,10000,postgres_rank_punctual_airlines,8,0.99,"month=8, most_punctual=MQ"
+2025-11-29T18:35:20.448622,postgres,10000,postgres_rank_punctual_airlines,9,0.98,"month=9, most_punctual=9E"
+2025-11-29T18:35:20.449875,postgres,10000,postgres_rank_punctual_airlines,10,1.09,"month=10, most_punctual=YX"
+2025-11-29T18:35:20.450888,postgres,10000,postgres_rank_punctual_airlines,11,0.89,"month=11, most_punctual=YX"
+2025-11-29T18:35:20.451988,postgres,10000,postgres_rank_punctual_airlines,12,0.97,"month=12, most_punctual=F9"
+2025-11-29T18:35:50.819383,postgres,100000,postgres_add_flight,1,0.71,inserted_id=100001
+2025-11-29T18:35:50.820333,postgres,100000,postgres_add_flight,2,0.29,inserted_id=100002
+2025-11-29T18:35:50.820968,postgres,100000,postgres_add_flight,3,0.25,inserted_id=100003
+2025-11-29T18:35:50.821652,postgres,100000,postgres_add_flight,4,0.26,inserted_id=100004
+2025-11-29T18:35:50.822402,postgres,100000,postgres_add_flight,5,0.27,inserted_id=100005
+2025-11-29T18:35:50.823077,postgres,100000,postgres_add_flight,6,0.32,inserted_id=100006
+2025-11-29T18:35:50.823698,postgres,100000,postgres_add_flight,7,0.25,inserted_id=100007
+2025-11-29T18:35:50.824278,postgres,100000,postgres_add_flight,8,0.25,inserted_id=100008
+2025-11-29T18:35:50.824849,postgres,100000,postgres_add_flight,9,0.24,inserted_id=100009
+2025-11-29T18:35:50.825445,postgres,100000,postgres_add_flight,10,0.24,inserted_id=100010
+2025-11-29T18:35:50.826027,postgres,100000,postgres_add_flight,11,0.27,inserted_id=100011
+2025-11-29T18:35:50.826593,postgres,100000,postgres_add_flight,12,0.24,inserted_id=100012
+2025-11-29T18:35:50.828014,postgres,100000,postgres_add_flight_stats,1,0.67,"flight_id=100012, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:35:50.828666,postgres,100000,postgres_add_flight_stats,2,0.31,"flight_id=100011, perf_inserted=1"
+2025-11-29T18:35:50.829231,postgres,100000,postgres_add_flight_stats,3,0.29,"flight_id=100010, perf_inserted=1"
+2025-11-29T18:35:50.829830,postgres,100000,postgres_add_flight_stats,4,0.35,"flight_id=100009, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:35:50.830408,postgres,100000,postgres_add_flight_stats,5,0.29,"flight_id=100008, perf_inserted=1"
+2025-11-29T18:35:50.831003,postgres,100000,postgres_add_flight_stats,6,0.31,"flight_id=100007, perf_inserted=1"
+2025-11-29T18:35:50.831526,postgres,100000,postgres_add_flight_stats,7,0.24,"flight_id=100006, perf_inserted=1"
+2025-11-29T18:35:50.832105,postgres,100000,postgres_add_flight_stats,8,0.3,"flight_id=100005, perf_inserted=1"
+2025-11-29T18:35:50.832799,postgres,100000,postgres_add_flight_stats,9,0.31,"flight_id=100004, perf_inserted=1"
+2025-11-29T18:35:50.833435,postgres,100000,postgres_add_flight_stats,10,0.33,"flight_id=100003, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:35:50.833921,postgres,100000,postgres_add_flight_stats,11,0.19,"flight_id=100002, perf_inserted=1"
+2025-11-29T18:35:50.834352,postgres,100000,postgres_add_flight_stats,12,0.19,"flight_id=100001, perf_inserted=1"
+2025-11-29T18:35:50.843487,postgres,100000,postgres_top_routes_month,1,8.93,DCA-BOS(20);BOS-DCA(18);ATL-DCA(16);DEN-PHX(16);DEN-LAS(14);DFW-LGA(14);ORD-LGA(14);LAX-LAS(14);LAS-SAN(13);LAX-DEN(13)
+2025-11-29T18:35:50.846105,postgres,100000,postgres_top_routes_month,2,2.45,OGG-HNL(16);BOS-DCA(15);DFW-LAS(15);MCO-ATL(14);ATL-MCO(14);BOS-ORD(14);ATL-MIA(13);PHX-DFW(13);DEN-SLC(13);LAX-SFO(13)
+2025-11-29T18:35:50.848583,postgres,100000,postgres_top_routes_month,3,2.35,DEN-PHX(18);ATL-FLL(17);ATL-MIA(17);LAX-LAS(16);OGG-HNL(16);MCO-ATL(16);MCO-SJU(15);LAS-LAX(15);ORD-LGA(15);SEA-LAS(15)
+2025-11-29T18:35:50.851193,postgres,100000,postgres_top_routes_month,4,2.46,JFK-LAX(17);HNL-KOA(17);LGA-BOS(17);DEN-LAS(16);LAX-DFW(15);LAX-JFK(15);OGG-HNL(15);PHX-SEA(14);LGA-ORD(14);EWR-MCO(13)
+2025-11-29T18:35:50.854009,postgres,100000,postgres_top_routes_month,5,2.65,DCA-BOS(21);SFO-LAX(18);ATL-MCO(16);BOS-LGA(16);LAS-DEN(15);LAX-LAS(15);ORD-PHX(15);DEN-SLC(14);OGG-HNL(14);DEN-PHX(14)
+2025-11-29T18:35:50.856820,postgres,100000,postgres_top_routes_month,6,2.62,SEA-ANC(18);DEN-LAS(16);SJU-MCO(16);LAS-SEA(15);PHX-SEA(15);LAX-JFK(14);DEN-ATL(14);LAX-SFO(14);LAS-LAX(14);ATL-IAH(14)
+2025-11-29T18:35:50.859692,postgres,100000,postgres_top_routes_month,7,2.72,ORD-LGA(20);OGG-HNL(18);LGA-ATL(16);HNL-OGG(15);LAX-PHX(15);DFW-ORD(14);PHX-DEN(14);SFO-LAX(14);SFO-SEA(14);LGA-RDU(13)
+2025-11-29T18:35:50.862285,postgres,100000,postgres_top_routes_month,8,2.47,SFO-SEA(18);LGA-ORD(16);HNL-OGG(15);LAS-LAX(15);ANC-SEA(15);KOA-HNL(15);SEA-DEN(14);HNL-LIH(13);LAX-LAS(13);JFK-LAX(13)
+2025-11-29T18:35:50.864788,postgres,100000,postgres_top_routes_month,9,2.36,ORD-LGA(19);LGA-ORD(17);DCA-BOS(17);ORD-LAX(16);SEA-ANC(15);ANC-SEA(15);ATL-DCA(15);SLC-DEN(15);SFO-LAX(15);LAX-SFO(14)
+2025-11-29T18:35:50.868621,postgres,100000,postgres_top_routes_month,10,3.39,OGG-HNL(20);SFO-LAX(18);DEN-PHX(18);DCA-BOS(16);BOS-DCA(16);LIH-HNL(16);LAX-SFO(16);DTW-DFW(15);MCO-ATL(14);BOS-ORD(14)
+2025-11-29T18:35:50.872765,postgres,100000,postgres_top_routes_month,11,3.63,DCA-BOS(17);OGG-HNL(15);LGA-ORD(15);LIH-HNL(15);DEN-LAX(15);JFK-LAX(14);DEN-LAS(14);DEN-PHX(14);LAX-LAS(14);SFO-LAX(14)
+2025-11-29T18:35:50.875508,postgres,100000,postgres_top_routes_month,12,2.54,LGA-ORD(19);SFO-LAX(18);LAX-JFK(16);LAX-LAS(16);HNL-LIH(15);MCO-EWR(15);ATL-DEN(15);KOA-HNL(15);HNL-OGG(14);LAX-SFO(14)
+2025-11-29T18:35:50.895252,postgres,100000,postgres_histogram_arr_delay,1,19.38,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.905272,postgres,100000,postgres_histogram_arr_delay,2,9.63,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.913952,postgres,100000,postgres_histogram_arr_delay,3,8.33,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.922136,postgres,100000,postgres_histogram_arr_delay,4,7.94,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.930029,postgres,100000,postgres_histogram_arr_delay,5,7.62,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.937929,postgres,100000,postgres_histogram_arr_delay,6,7.66,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.946719,postgres,100000,postgres_histogram_arr_delay,7,8.48,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.954765,postgres,100000,postgres_histogram_arr_delay,8,7.77,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.962788,postgres,100000,postgres_histogram_arr_delay,9,7.71,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.970802,postgres,100000,postgres_histogram_arr_delay,10,7.75,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.978993,postgres,100000,postgres_histogram_arr_delay,11,7.93,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.986654,postgres,100000,postgres_histogram_arr_delay,12,7.44,"buckets=9, total_in_first=2953"
+2025-11-29T18:35:50.987540,postgres,100000,postgres_find_route_with_stats,1,0.71,count=3
+2025-11-29T18:35:50.988007,postgres,100000,postgres_find_route_with_stats,2,0.33,count=2
+2025-11-29T18:35:50.988496,postgres,100000,postgres_find_route_with_stats,3,0.37,count=0
+2025-11-29T18:35:50.988904,postgres,100000,postgres_find_route_with_stats,4,0.29,count=2
+2025-11-29T18:35:50.989386,postgres,100000,postgres_find_route_with_stats,5,0.37,count=2
+2025-11-29T18:35:50.989794,postgres,100000,postgres_find_route_with_stats,6,0.29,count=1
+2025-11-29T18:35:50.990292,postgres,100000,postgres_find_route_with_stats,7,0.33,count=0
+2025-11-29T18:35:50.990644,postgres,100000,postgres_find_route_with_stats,8,0.25,count=0
+2025-11-29T18:35:50.991074,postgres,100000,postgres_find_route_with_stats,9,0.32,count=2
+2025-11-29T18:35:50.991437,postgres,100000,postgres_find_route_with_stats,10,0.26,count=1
+2025-11-29T18:35:50.991774,postgres,100000,postgres_find_route_with_stats,11,0.24,count=1
+2025-11-29T18:35:50.992194,postgres,100000,postgres_find_route_with_stats,12,0.32,count=2
+2025-11-29T18:35:51.000762,postgres,100000,postgres_rank_punctual_airlines,1,8.37,"month=1, most_punctual=G4"
+2025-11-29T18:35:51.008625,postgres,100000,postgres_rank_punctual_airlines,2,7.64,"month=2, most_punctual=9E"
+2025-11-29T18:35:51.016345,postgres,100000,postgres_rank_punctual_airlines,3,7.49,"month=3, most_punctual=YX"
+2025-11-29T18:35:51.024003,postgres,100000,postgres_rank_punctual_airlines,4,7.47,"month=4, most_punctual=G4"
+2025-11-29T18:35:51.031633,postgres,100000,postgres_rank_punctual_airlines,5,7.42,"month=5, most_punctual=G4"
+2025-11-29T18:35:51.039208,postgres,100000,postgres_rank_punctual_airlines,6,7.4,"month=6, most_punctual=HA"
+2025-11-29T18:35:51.046669,postgres,100000,postgres_rank_punctual_airlines,7,7.26,"month=7, most_punctual=HA"
+2025-11-29T18:35:51.053915,postgres,100000,postgres_rank_punctual_airlines,8,7.07,"month=8, most_punctual=DL"
+2025-11-29T18:35:51.061238,postgres,100000,postgres_rank_punctual_airlines,9,7.11,"month=9, most_punctual=YX"
+2025-11-29T18:35:51.068798,postgres,100000,postgres_rank_punctual_airlines,10,7.39,"month=10, most_punctual=YX"
+2025-11-29T18:35:51.076487,postgres,100000,postgres_rank_punctual_airlines,11,7.48,"month=11, most_punctual=B6"
+2025-11-29T18:35:51.083867,postgres,100000,postgres_rank_punctual_airlines,12,7.19,"month=12, most_punctual=DL"
+2025-11-29T18:36:27.254471,mysql,10000,mysql_add_flight,1,0.99,OK
+2025-11-29T18:36:27.256597,mysql,10000,mysql_add_flight,2,0.82,OK
+2025-11-29T18:36:27.259579,mysql,10000,mysql_add_flight,3,1.95,OK
+2025-11-29T18:36:27.261261,mysql,10000,mysql_add_flight_stats,1,1.26,"flight_id=10001, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:36:27.262823,mysql,10000,mysql_add_flight_stats,2,1.18,"flight_id=10002, perf_inserted=1"
+2025-11-29T18:36:27.264028,mysql,10000,mysql_add_flight_stats,3,0.83,"flight_id=10003, perf_inserted=1"
+2025-11-29T18:36:27.270945,mysql,10000,mysql_top_routes_month,1,6.26,MCO-JFK(4);JFK-SFO(4);PBI-BOS(4);EWR-PBI(4);LGA-ORD(4);TPA-CLE(3);MCO-ORD(3);DFW-LGA(3);MCO-PHL(3);ATL-DFW(3)
+2025-11-29T18:36:27.277503,mysql,10000,mysql_top_routes_month,2,5.98,LAS-DEN(4);LAS-SNA(3);PHX-SEA(3);SNA-PHX(3);SLC-SAN(3);EWR-BOS(3);MCO-ATL(3);LGA-SRQ(3);BOS-LGA(3);LGA-BHM(3)
+2025-11-29T18:36:27.283710,mysql,10000,mysql_top_routes_month,3,5.6,SFO-LAX(5);ORD-PHX(4);JAN-ATL(4);SJU-MCO(3);IAH-LAX(3);ORD-ATL(3);CLT-ATL(3);SAN-PHX(3);DEN-SLC(3);HNL-OGG(3)
+2025-11-29T18:36:27.288318,mysql,10000,mysql_histogram_arr_delay,1,3.97,"buckets=9, total in first bucket=294"
+2025-11-29T18:36:27.292420,mysql,10000,mysql_histogram_arr_delay,2,3.46,"buckets=9, total in first bucket=294"
+2025-11-29T18:36:27.299449,mysql,10000,mysql_histogram_arr_delay,3,5.88,"buckets=9, total in first bucket=294"
+2025-11-29T18:36:27.300948,mysql,10000,mysql_find_route_with_stats,1,0.69,count=1
+2025-11-29T18:36:27.301878,mysql,10000,mysql_find_route_with_stats,2,0.39,count=0
+2025-11-29T18:36:27.302839,mysql,10000,mysql_find_route_with_stats,3,0.39,count=0
+2025-11-29T18:36:27.306922,mysql,10000,mysql_rank_punctual_airlines,1,3.55,"month=1, most_punctual=F9"
+2025-11-29T18:36:27.309381,mysql,10000,mysql_rank_punctual_airlines,2,1.95,"month=2, most_punctual=YX"
+2025-11-29T18:36:27.311821,mysql,10000,mysql_rank_punctual_airlines,3,2.02,"month=3, most_punctual=AS"
+2025-11-29T18:36:59.857856,mysql,100000,mysql_add_flight,1,1.24,OK
+2025-11-29T18:36:59.859978,mysql,100000,mysql_add_flight,2,0.77,OK
+2025-11-29T18:36:59.861568,mysql,100000,mysql_add_flight,3,0.68,OK
+2025-11-29T18:36:59.863213,mysql,100000,mysql_add_flight_stats,1,1.15,"flight_id=100001, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:36:59.864319,mysql,100000,mysql_add_flight_stats,2,0.69,"flight_id=100002, perf_inserted=1"
+2025-11-29T18:36:59.865255,mysql,100000,mysql_add_flight_stats,3,0.59,"flight_id=100003, perf_inserted=1"
+2025-11-29T18:36:59.929769,mysql,100000,mysql_top_routes_month,1,63.82,LAX-SFO(16);FLL-ATL(15);LGA-MCO(15);LAX-JFK(14);CLT-MCO(14);LAX-LAS(14);MIA-LGA(14);EWR-PBI(13);DEN-AUS(13);HNL-OGG(13)
+2025-11-29T18:36:59.992818,mysql,100000,mysql_top_routes_month,2,62.19,PHX-DEN(15);MCO-EWR(15);HNL-OGG(15);LAS-LAX(14);LIH-HNL(14);LGA-BOS(13);SFO-LAX(13);BOS-DCA(12);DFW-DEN(12);FLL-ATL(12)
+2025-11-29T18:37:00.055275,mysql,100000,mysql_top_routes_month,3,61.58,LAX-SFO(18);ATL-MCO(16);OGG-HNL(16);PHX-DEN(16);SFO-LAX(15);ATL-FLL(14);HNL-OGG(14);PHX-SEA(14);ORD-PHX(13);FLL-ATL(13)
+2025-11-29T18:37:00.090769,mysql,100000,mysql_histogram_arr_delay,1,32.95,"buckets=9, total in first bucket=2895"
+2025-11-29T18:37:00.124273,mysql,100000,mysql_histogram_arr_delay,2,32.5,"buckets=9, total in first bucket=2895"
+2025-11-29T18:37:00.156666,mysql,100000,mysql_histogram_arr_delay,3,31.56,"buckets=9, total in first bucket=2895"
+2025-11-29T18:37:00.157922,mysql,100000,mysql_find_route_with_stats,1,0.58,count=2
+2025-11-29T18:37:00.158820,mysql,100000,mysql_find_route_with_stats,2,0.34,count=2
+2025-11-29T18:37:00.159685,mysql,100000,mysql_find_route_with_stats,3,0.34,count=0
+2025-11-29T18:37:00.178876,mysql,100000,mysql_rank_punctual_airlines,1,18.54,"month=1, most_punctual=DL"
+2025-11-29T18:37:00.195813,mysql,100000,mysql_rank_punctual_airlines,2,16.23,"month=2, most_punctual=9E"
+2025-11-29T18:37:00.215247,mysql,100000,mysql_rank_punctual_airlines,3,18.69,"month=3, most_punctual=YX"
+2025-11-29T18:37:03.207766,postgres,10000,postgres_add_flight,1,0.54,inserted_id=10001
+2025-11-29T18:37:03.208645,postgres,10000,postgres_add_flight,2,0.35,inserted_id=10002
+2025-11-29T18:37:03.209382,postgres,10000,postgres_add_flight,3,0.31,inserted_id=10003
+2025-11-29T18:37:03.212474,postgres,10000,postgres_add_flight_stats,1,0.46,"flight_id=10003, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:37:03.214640,postgres,10000,postgres_add_flight_stats,2,0.27,"flight_id=10002, perf_inserted=1"
+2025-11-29T18:37:03.216179,postgres,10000,postgres_add_flight_stats,3,0.3,"flight_id=10001, perf_inserted=1"
+2025-11-29T18:37:03.217010,postgres,10000,postgres_top_routes_month,1,0.69,JFK-SFO(4);EWR-PBI(4);PBI-BOS(4);MCO-JFK(4);LGA-ORD(4);SJU-MCO(3);SAN-ATL(3);JFK-MCO(3);DFW-LGA(3);TPA-CLE(3)
+2025-11-29T18:37:03.217615,postgres,10000,postgres_top_routes_month,2,0.49,LAS-DEN(4);LAS-SNA(3);LAS-DFW(3);LGA-DTW(3);PHX-SEA(3);LGA-SRQ(3);BOS-LGA(3);LGA-BHM(3);EWR-BOS(3);SLC-SAN(3)
+2025-11-29T18:37:03.218224,postgres,10000,postgres_top_routes_month,3,0.48,SFO-LAX(5);JAN-ATL(4);ORD-PHX(4);ORD-ATL(3);DEN-SLC(3);IAH-LAX(3);HNL-OGG(3);CLT-ATL(3);SJU-MCO(3);SAN-PHX(3)
+2025-11-29T18:37:03.219706,postgres,10000,postgres_histogram_arr_delay,1,1.31,"buckets=9, total_in_first=294"
+2025-11-29T18:37:03.221053,postgres,10000,postgres_histogram_arr_delay,2,1.2,"buckets=9, total_in_first=294"
+2025-11-29T18:37:03.222370,postgres,10000,postgres_histogram_arr_delay,3,1.2,"buckets=9, total_in_first=294"
+2025-11-29T18:37:03.222938,postgres,10000,postgres_find_route_with_stats,1,0.44,count=1
+2025-11-29T18:37:03.223342,postgres,10000,postgres_find_route_with_stats,2,0.29,count=0
+2025-11-29T18:37:03.223721,postgres,10000,postgres_find_route_with_stats,3,0.28,count=0
+2025-11-29T18:37:03.225146,postgres,10000,postgres_rank_punctual_airlines,1,1.31,"month=1, most_punctual=F9"
+2025-11-29T18:37:03.226282,postgres,10000,postgres_rank_punctual_airlines,2,1.01,"month=2, most_punctual=YX"
+2025-11-29T18:37:03.227410,postgres,10000,postgres_rank_punctual_airlines,3,0.98,"month=3, most_punctual=AS"
+2025-11-29T18:37:32.250045,postgres,100000,postgres_add_flight,1,0.63,inserted_id=100001
+2025-11-29T18:37:32.251047,postgres,100000,postgres_add_flight,2,0.29,inserted_id=100002
+2025-11-29T18:37:32.251762,postgres,100000,postgres_add_flight,3,0.28,inserted_id=100003
+2025-11-29T18:37:32.253210,postgres,100000,postgres_add_flight_stats,1,0.67,"flight_id=100003, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:37:32.253860,postgres,100000,postgres_add_flight_stats,2,0.28,"flight_id=100002, perf_inserted=1"
+2025-11-29T18:37:32.254415,postgres,100000,postgres_add_flight_stats,3,0.24,"flight_id=100001, perf_inserted=1"
+2025-11-29T18:37:32.258709,postgres,100000,postgres_top_routes_month,1,4.14,LAX-SFO(16);LGA-MCO(15);FLL-ATL(15);LAX-JFK(14);MIA-LGA(14);LAX-LAS(14);CLT-MCO(14);MCO-ATL(13);MCO-CLT(13);EWR-PBI(13)
+2025-11-29T18:37:32.260935,postgres,100000,postgres_top_routes_month,2,2.09,MCO-EWR(15);PHX-DEN(15);HNL-OGG(15);LAS-LAX(14);LIH-HNL(14);LGA-BOS(13);SFO-LAX(13);SFO-PHX(12);DFW-DEN(12);BOS-DCA(12)
+2025-11-29T18:37:32.263310,postgres,100000,postgres_top_routes_month,3,2.22,LAX-SFO(18);ATL-MCO(16);OGG-HNL(16);PHX-DEN(16);SFO-LAX(15);PHX-SEA(14);ATL-FLL(14);HNL-OGG(14);PHX-LAS(13);EWR-LAX(13)
+2025-11-29T18:37:32.275089,postgres,100000,postgres_histogram_arr_delay,1,11.51,"buckets=9, total_in_first=2895"
+2025-11-29T18:37:32.285454,postgres,100000,postgres_histogram_arr_delay,2,10.11,"buckets=9, total_in_first=2895"
+2025-11-29T18:37:32.297114,postgres,100000,postgres_histogram_arr_delay,3,11.35,"buckets=9, total_in_first=2895"
+2025-11-29T18:37:32.297997,postgres,100000,postgres_find_route_with_stats,1,0.67,count=2
+2025-11-29T18:37:32.298479,postgres,100000,postgres_find_route_with_stats,2,0.34,count=2
+2025-11-29T18:37:32.298935,postgres,100000,postgres_find_route_with_stats,3,0.31,count=0
+2025-11-29T18:37:32.307198,postgres,100000,postgres_rank_punctual_airlines,1,8.07,"month=1, most_punctual=DL"
+2025-11-29T18:37:32.314654,postgres,100000,postgres_rank_punctual_airlines,2,7.21,"month=2, most_punctual=9E"
+2025-11-29T18:37:32.321727,postgres,100000,postgres_rank_punctual_airlines,3,6.89,"month=3, most_punctual=YX"
+2025-11-29T18:37:32.603280,mongo,10k,mongo_add_flight,1,1.65,OK
+2025-11-29T18:37:32.607797,mongo,10k,mongo_add_flight,2,3.77,OK
+2025-11-29T18:37:32.609760,mongo,10k,mongo_add_flight,3,1.19,OK
+2025-11-29T18:37:32.623991,mongo,10k,mongo_add_flight_stats,1,13.48,"flight_id=10001, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:37:32.625507,mongo,10k,mongo_add_flight_stats,2,0.81,"flight_id=10002, perf_inserted=1"
+2025-11-29T18:37:32.626932,mongo,10k,mongo_add_flight_stats,3,0.81,"flight_id=10003, perf_inserted=1"
+2025-11-29T18:37:32.647607,mongo,10k,mongo_top_routes_month,1,19.89,rows=10
+2025-11-29T18:37:32.650737,mongo,10k,mongo_top_routes_month,2,2.39,rows=10
+2025-11-29T18:37:32.653256,mongo,10k,mongo_top_routes_month,3,1.98,rows=10
+2025-11-29T18:37:32.661565,mongo,10k,mongo_histogram_arr_delay,1,7.62,buckets=9
+2025-11-29T18:37:32.669143,mongo,10k,mongo_histogram_arr_delay,2,6.72,buckets=9
+2025-11-29T18:37:32.676197,mongo,10k,mongo_histogram_arr_delay,3,6.22,buckets=9
+2025-11-29T18:37:32.681934,mongo,10k,mongo_find_route_with_stats,1,4.95,count=1
+2025-11-29T18:37:32.683984,mongo,10k,mongo_find_route_with_stats,2,1.46,count=0
+2025-11-29T18:37:32.685469,mongo,10k,mongo_find_route_with_stats,3,0.93,count=0
+2025-11-29T18:37:32.689624,mongo,10k,mongo_rank_punctual_airlines,1,3.57,"month=1, no_results"
+2025-11-29T18:37:32.693509,mongo,10k,mongo_rank_punctual_airlines,2,3.31,"month=2, no_results"
+2025-11-29T18:37:32.697230,mongo,10k,mongo_rank_punctual_airlines,3,3.08,"month=3, no_results"
+2025-11-29T18:37:32.698587,mongo,10k,mongo_read_by_carrier_day,1,0.81,found=7
+2025-11-29T18:37:32.699779,mongo,10k,mongo_read_by_carrier_day,2,0.62,found=7
+2025-11-29T18:37:32.701506,mongo,10k,mongo_read_by_carrier_day,3,0.86,found=7
+2025-11-29T18:37:32.770332,mongo,10k,mongo_insert_batch,1,66.51,inserted=10000
+2025-11-29T18:37:32.839050,mongo,10k,mongo_insert_batch,2,66.35,inserted=10000
+2025-11-29T18:37:32.926148,mongo,10k,mongo_insert_batch,3,84.94,inserted=10000
+2025-11-29T18:37:33.081530,mongo,10k,mongo_update_many,1,154.51,"matched=30000, modified=30000"
+2025-11-29T18:37:33.242887,mongo,10k,mongo_update_many,2,160.34,"matched=30000, modified=30000"
+2025-11-29T18:37:33.422459,mongo,10k,mongo_update_many,3,178.42,"matched=30000, modified=30000"
+2025-11-29T18:37:33.615136,mongo,10k,mongo_delete_many,1,191.45,deleted=30000
+2025-11-29T18:37:33.618213,mongo,10k,mongo_delete_many,2,2.03,deleted=0
+2025-11-29T18:37:33.620214,mongo,10k,mongo_delete_many,3,1.26,deleted=0
+2025-11-29T18:37:35.246021,mongo,100k,mongo_add_flight,1,1.45,OK
+2025-11-29T18:37:35.247803,mongo,100k,mongo_add_flight,2,0.94,OK
+2025-11-29T18:37:35.249305,mongo,100k,mongo_add_flight,3,0.91,OK
+2025-11-29T18:37:35.250818,mongo,100k,mongo_add_flight_stats,1,0.92,"flight_id=100001, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:37:35.252193,mongo,100k,mongo_add_flight_stats,2,0.81,"flight_id=100002, perf_inserted=1"
+2025-11-29T18:37:35.253657,mongo,100k,mongo_add_flight_stats,3,0.89,"flight_id=100003, perf_inserted=1"
+2025-11-29T18:37:35.294647,mongo,100k,mongo_top_routes_month,1,40.16,rows=10
+2025-11-29T18:37:35.310808,mongo,100k,mongo_top_routes_month,2,15.18,rows=10
+2025-11-29T18:37:35.323570,mongo,100k,mongo_top_routes_month,3,11.84,rows=10
+2025-11-29T18:37:35.371331,mongo,100k,mongo_histogram_arr_delay,1,46.84,buckets=9
+2025-11-29T18:37:35.418988,mongo,100k,mongo_histogram_arr_delay,2,46.54,buckets=9
+2025-11-29T18:37:35.466236,mongo,100k,mongo_histogram_arr_delay,3,46.31,buckets=9
+2025-11-29T18:37:35.468296,mongo,100k,mongo_find_route_with_stats,1,1.25,count=3
+2025-11-29T18:37:35.469713,mongo,100k,mongo_find_route_with_stats,2,0.76,count=0
+2025-11-29T18:37:35.471145,mongo,100k,mongo_find_route_with_stats,3,0.92,count=1
+2025-11-29T18:37:35.498040,mongo,100k,mongo_rank_punctual_airlines,1,26.21,"month=4, no_results"
+2025-11-29T18:37:35.523738,mongo,100k,mongo_rank_punctual_airlines,2,24.8,"month=5, no_results"
+2025-11-29T18:37:35.550378,mongo,100k,mongo_rank_punctual_airlines,3,25.66,"month=6, no_results"
+2025-11-29T18:37:35.552413,mongo,100k,mongo_read_by_carrier_day,1,1.19,found=62
+2025-11-29T18:37:35.554058,mongo,100k,mongo_read_by_carrier_day,2,1.02,found=62
+2025-11-29T18:37:35.555692,mongo,100k,mongo_read_by_carrier_day,3,1.07,found=62
+2025-11-29T18:37:36.326816,mongo,100k,mongo_insert_batch,1,750.21,inserted=100000
+2025-11-29T18:37:36.980761,mongo,100k,mongo_insert_batch,2,627.65,inserted=100000
+2025-11-29T18:37:37.656901,mongo,100k,mongo_insert_batch,3,652.13,inserted=100000
+2025-11-29T18:37:39.090302,mongo,100k,mongo_update_many,1,1432.16,"matched=300000, modified=300000"
+2025-11-29T18:37:40.453169,mongo,100k,mongo_update_many,2,1361.42,"matched=300000, modified=300000"
+2025-11-29T18:37:41.798592,mongo,100k,mongo_update_many,3,1343.76,"matched=300000, modified=300000"
+2025-11-29T18:37:43.750315,mongo,100k,mongo_delete_many,1,1949.3,deleted=300000
+2025-11-29T18:37:43.758104,mongo,100k,mongo_delete_many,2,6.49,deleted=0
+2025-11-29T18:37:43.765653,mongo,100k,mongo_delete_many,3,6.58,deleted=0
+2025-11-29T18:38:22.727279,cassandra,10k,cass_add_flight,1,7.91,OK
+2025-11-29T18:38:22.757213,cassandra,10k,cass_add_flight,2,5.98,OK
+2025-11-29T18:38:22.788493,cassandra,10k,cass_add_flight,3,4.06,OK
+2025-11-29T18:38:22.808342,cassandra,10k,cass_add_flight_stats,1,5.04,"carrier=WN, route=ATL-DFW"
+2025-11-29T18:38:22.828290,cassandra,10k,cass_add_flight_stats,2,4.15,"carrier=DL, route=LAX-ATL"
+2025-11-29T18:38:22.847292,cassandra,10k,cass_add_flight_stats,3,4.13,"carrier=AA, route=JFK-LAX"
+2025-11-29T18:38:22.982016,cassandra,10k,cass_top_routes_month,1,119.47,rows=10 scanned=786
+2025-11-29T18:38:23.040769,cassandra,10k,cass_top_routes_month,2,39.29,rows=10 scanned=786
+2025-11-29T18:38:23.093416,cassandra,10k,cass_top_routes_month,3,28.21,rows=10 scanned=786
+2025-11-29T18:38:23.196352,cassandra,10k,cass_histogram_arr_delay,1,78.82,buckets=9
+2025-11-29T18:38:23.292236,cassandra,10k,cass_histogram_arr_delay,2,74.0,buckets=9
+2025-11-29T18:38:23.393104,cassandra,10k,cass_histogram_arr_delay,3,78.87,buckets=9
+2025-11-29T18:38:23.424991,cassandra,10k,cass_find_route_with_stats,1,16.7,count=1
+2025-11-29T18:38:23.466692,cassandra,10k,cass_find_route_with_stats,2,26.49,count=0
+2025-11-29T18:38:23.500194,cassandra,10k,cass_find_route_with_stats,3,14.88,count=0
+2025-11-29T18:38:23.543015,cassandra,10k,cass_rank_punctual_airlines,1,24.75,"month=1, no_results"
+2025-11-29T18:38:23.579875,cassandra,10k,cass_rank_punctual_airlines,2,19.67,"month=2, no_results"
+2025-11-29T18:38:23.633938,cassandra,10k,cass_rank_punctual_airlines,3,20.57,"month=3, no_results"
+2025-11-29T18:38:23.664255,cassandra,10k,cass_read_by_carrier_day,1,12.96,found=7
+2025-11-29T18:38:23.687186,cassandra,10k,cass_read_by_carrier_day,2,7.93,found=7
+2025-11-29T18:38:23.711262,cassandra,10k,cass_read_by_carrier_day,3,8.01,found=7
+2025-11-29T18:38:23.748930,cassandra,10k,cass_histogram_arr_delay_month,1,18.53,buckets=9
+2025-11-29T18:38:23.801425,cassandra,10k,cass_histogram_arr_delay_month,2,35.18,buckets=9
+2025-11-29T18:38:23.838684,cassandra,10k,cass_histogram_arr_delay_month,3,20.46,buckets=9
+2025-11-29T18:45:11.141083,mongo,10k,mongo_add_flight,1,1.37,OK
+2025-11-29T18:45:11.143013,mongo,10k,mongo_add_flight,2,0.85,OK
+2025-11-29T18:45:11.144566,mongo,10k,mongo_add_flight,3,0.73,OK
+2025-11-29T18:45:11.146321,mongo,10k,mongo_add_flight_stats,1,1.13,"flight_id=692b3f374c9d35094ef71eb4, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:45:11.147760,mongo,10k,mongo_add_flight_stats,2,0.83,"flight_id=692b3f374c9d35094ef71eb6, perf_inserted=1"
+2025-11-29T18:45:11.149095,mongo,10k,mongo_add_flight_stats,3,0.6,"flight_id=692b3f374c9d35094ef71eb8, perf_inserted=1"
+2025-11-29T18:45:11.156894,mongo,10k,mongo_top_routes_month,1,7.22,rows=10
+2025-11-29T18:45:11.160015,mongo,10k,mongo_top_routes_month,2,2.45,rows=10
+2025-11-29T18:45:11.163025,mongo,10k,mongo_top_routes_month,3,2.29,rows=10
+2025-11-29T18:45:11.171089,mongo,10k,mongo_histogram_arr_delay,1,7.35,buckets=9
+2025-11-29T18:45:11.178618,mongo,10k,mongo_histogram_arr_delay,2,6.66,buckets=9
+2025-11-29T18:45:11.186311,mongo,10k,mongo_histogram_arr_delay,3,6.87,buckets=9
+2025-11-29T18:45:11.193272,mongo,10k,mongo_find_route_with_stats,1,6.18,count=0
+2025-11-29T18:45:11.195401,mongo,10k,mongo_find_route_with_stats,2,1.39,count=0
+2025-11-29T18:45:11.196857,mongo,10k,mongo_find_route_with_stats,3,0.92,count=0
+2025-11-29T18:45:11.201647,mongo,10k,mongo_rank_punctual_airlines,1,4.11,"month=1, most_punctual=WN"
+2025-11-29T18:45:11.205812,mongo,10k,mongo_rank_punctual_airlines,2,3.52,"month=2, most_punctual=DL"
+2025-11-29T18:45:11.209960,mongo,10k,mongo_rank_punctual_airlines,3,3.35,"month=3, most_punctual=AA"
+2025-11-29T18:45:11.211583,mongo,10k,mongo_read_by_carrier_day,1,0.96,found=9
+2025-11-29T18:45:11.213109,mongo,10k,mongo_read_by_carrier_day,2,0.94,found=9
+2025-11-29T18:45:11.214510,mongo,10k,mongo_read_by_carrier_day,3,0.76,found=9
+2025-11-29T18:45:11.280916,mongo,10k,mongo_insert_batch,1,64.08,inserted=10000
+2025-11-29T18:45:11.343989,mongo,10k,mongo_insert_batch,2,60.56,inserted=10000
+2025-11-29T18:45:11.427164,mongo,10k,mongo_insert_batch,3,80.63,inserted=10000
+2025-11-29T18:45:11.554557,mongo,10k,mongo_update_many,1,126.45,"matched=30000, modified=30000"
+2025-11-29T18:45:11.683461,mongo,10k,mongo_update_many,2,127.86,"matched=30000, modified=30000"
+2025-11-29T18:45:11.816126,mongo,10k,mongo_update_many,3,131.7,"matched=30000, modified=30000"
+2025-11-29T18:45:11.983628,mongo,10k,mongo_delete_many,1,166.5,deleted=30000
+2025-11-29T18:45:11.985560,mongo,10k,mongo_delete_many,2,1.12,deleted=0
+2025-11-29T18:45:11.987117,mongo,10k,mongo_delete_many,3,0.95,deleted=0
+2025-11-29T18:45:13.606552,mongo,100k,mongo_add_flight,1,1.8,OK
+2025-11-29T18:45:13.608074,mongo,100k,mongo_add_flight,2,0.81,OK
+2025-11-29T18:45:13.609344,mongo,100k,mongo_add_flight,3,0.74,OK
+2025-11-29T18:45:13.610733,mongo,100k,mongo_add_flight_stats,1,0.78,"flight_id=692b3f394c9d35094ef91aab, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:45:13.611925,mongo,100k,mongo_add_flight_stats,2,0.69,"flight_id=692b3f394c9d35094ef91aad, perf_inserted=1"
+2025-11-29T18:45:13.613063,mongo,100k,mongo_add_flight_stats,3,0.62,"flight_id=692b3f394c9d35094ef91aaf, perf_inserted=1"
+2025-11-29T18:45:13.626446,mongo,100k,mongo_top_routes_month,1,12.78,rows=10
+2025-11-29T18:45:13.638395,mongo,100k,mongo_top_routes_month,2,11.14,rows=10
+2025-11-29T18:45:13.650687,mongo,100k,mongo_top_routes_month,3,11.45,rows=10
+2025-11-29T18:45:13.699971,mongo,100k,mongo_histogram_arr_delay,1,48.33,buckets=9
+2025-11-29T18:45:13.749219,mongo,100k,mongo_histogram_arr_delay,2,48.25,buckets=9
+2025-11-29T18:45:13.798690,mongo,100k,mongo_histogram_arr_delay,3,48.46,buckets=9
+2025-11-29T18:45:13.800824,mongo,100k,mongo_find_route_with_stats,1,1.33,count=1
+2025-11-29T18:45:13.802435,mongo,100k,mongo_find_route_with_stats,2,1.06,count=1
+2025-11-29T18:45:13.803743,mongo,100k,mongo_find_route_with_stats,3,0.75,count=0
+2025-11-29T18:45:13.830180,mongo,100k,mongo_rank_punctual_airlines,1,25.78,"month=4, most_punctual=UA"
+2025-11-29T18:45:13.856387,mongo,100k,mongo_rank_punctual_airlines,2,25.29,"month=5, no_results"
+2025-11-29T18:45:13.883011,mongo,100k,mongo_rank_punctual_airlines,3,25.69,"month=6, most_punctual=OO"
+2025-11-29T18:45:13.884982,mongo,100k,mongo_read_by_carrier_day,1,1.17,found=69
+2025-11-29T18:45:13.886921,mongo,100k,mongo_read_by_carrier_day,2,1.28,found=69
+2025-11-29T18:45:13.888405,mongo,100k,mongo_read_by_carrier_day,3,0.98,found=69
+2025-11-29T18:45:14.527018,mongo,100k,mongo_insert_batch,1,622.66,inserted=100000
+2025-11-29T18:45:15.183301,mongo,100k,mongo_insert_batch,2,631.5,inserted=100000
+2025-11-29T18:45:15.884681,mongo,100k,mongo_insert_batch,3,686.0,inserted=100000
+2025-11-29T18:45:17.209987,mongo,100k,mongo_update_many,1,1323.96,"matched=300000, modified=300000"
+2025-11-29T18:45:18.495141,mongo,100k,mongo_update_many,2,1283.94,"matched=300000, modified=300000"
+2025-11-29T18:45:19.857642,mongo,100k,mongo_update_many,3,1361.28,"matched=300000, modified=300000"
+2025-11-29T18:45:21.399529,mongo,100k,mongo_delete_many,1,1540.56,deleted=300000
+2025-11-29T18:45:21.403989,mongo,100k,mongo_delete_many,2,3.52,deleted=0
+2025-11-29T18:45:21.407782,mongo,100k,mongo_delete_many,3,3.14,deleted=0
+2025-11-29T18:46:00.034805,cassandra,10k,cass_add_flight,1,3.58,OK
+2025-11-29T18:46:00.056366,cassandra,10k,cass_add_flight,2,3.97,OK
+2025-11-29T18:46:00.081299,cassandra,10k,cass_add_flight,3,5.13,OK
+2025-11-29T18:46:00.106469,cassandra,10k,cass_add_flight_stats,1,4.0,"carrier=WN, route=ATL-DFW"
+2025-11-29T18:46:00.127396,cassandra,10k,cass_add_flight_stats,2,3.9,"carrier=DL, route=LAX-ATL"
+2025-11-29T18:46:00.145487,cassandra,10k,cass_add_flight_stats,3,4.12,"carrier=AA, route=JFK-LAX"
+2025-11-29T18:46:00.177506,cassandra,10k,cass_top_routes_month,1,16.91,rows=10 scanned=761
+2025-11-29T18:46:00.210243,cassandra,10k,cass_top_routes_month,2,17.83,rows=10 scanned=761
+2025-11-29T18:46:00.243271,cassandra,10k,cass_top_routes_month,3,16.73,rows=10 scanned=761
+2025-11-29T18:46:00.329752,cassandra,10k,cass_histogram_arr_delay,1,70.36,buckets=9
+2025-11-29T18:46:00.384901,cassandra,10k,cass_histogram_arr_delay,2,39.37,buckets=9
+2025-11-29T18:46:00.435005,cassandra,10k,cass_histogram_arr_delay,3,35.47,buckets=9
+2025-11-29T18:46:00.460258,cassandra,10k,cass_find_route_with_stats,1,8.67,count=0
+2025-11-29T18:46:00.486077,cassandra,10k,cass_find_route_with_stats,2,9.07,count=0
+2025-11-29T18:46:00.512339,cassandra,10k,cass_find_route_with_stats,3,8.98,count=0
+2025-11-29T18:46:00.540976,cassandra,10k,cass_rank_punctual_airlines,1,10.44,"month=1, no_results"
+2025-11-29T18:46:00.566596,cassandra,10k,cass_rank_punctual_airlines,2,10.22,"month=2, no_results"
+2025-11-29T18:46:00.596880,cassandra,10k,cass_rank_punctual_airlines,3,11.23,"month=3, no_results"
+2025-11-29T18:46:00.623487,cassandra,10k,cass_read_by_carrier_day,1,9.92,found=9
+2025-11-29T18:46:00.645486,cassandra,10k,cass_read_by_carrier_day,2,8.03,found=9
+2025-11-29T18:46:00.669551,cassandra,10k,cass_read_by_carrier_day,3,8.08,found=9
+2025-11-29T18:46:00.700293,cassandra,10k,cass_histogram_arr_delay_month,1,13.73,buckets=9
+2025-11-29T18:46:00.755786,cassandra,10k,cass_histogram_arr_delay_month,2,13.14,buckets=9
+2025-11-29T18:46:00.790049,cassandra,10k,cass_histogram_arr_delay_month,3,18.6,buckets=9
+2025-11-29T18:53:11.777730,cassandra,100k,cass_add_flight,1,3.7,OK
+2025-11-29T18:53:11.863062,cassandra,100k,cass_add_flight,2,3.13,OK
+2025-11-29T18:53:11.880833,cassandra,100k,cass_add_flight,3,3.93,OK
+2025-11-29T18:53:11.900032,cassandra,100k,cass_add_flight_stats,1,4.12,"carrier=WN, route=ATL-DFW"
+2025-11-29T18:53:11.917793,cassandra,100k,cass_add_flight_stats,2,4.04,"carrier=DL, route=LAX-ATL"
+2025-11-29T18:53:11.936908,cassandra,100k,cass_add_flight_stats,3,4.13,"carrier=AA, route=JFK-LAX"
+2025-11-29T18:53:12.665100,cassandra,100k,cass_top_routes_month,1,713.98,rows=10 scanned=7778
+2025-11-29T18:53:12.819977,cassandra,100k,cass_top_routes_month,2,136.96,rows=10 scanned=7778
+2025-11-29T18:53:12.979481,cassandra,100k,cass_top_routes_month,3,144.53,rows=10 scanned=7778
+2025-11-29T18:53:13.313230,cassandra,100k,cass_histogram_arr_delay,1,318.24,buckets=9
+2025-11-29T18:53:13.662316,cassandra,100k,cass_histogram_arr_delay,2,334.44,buckets=9
+2025-11-29T18:53:13.969943,cassandra,100k,cass_histogram_arr_delay,3,291.92,buckets=9
+2025-11-29T18:53:14.075486,cassandra,100k,cass_find_route_with_stats,1,88.64,count=1
+2025-11-29T18:53:14.198107,cassandra,100k,cass_find_route_with_stats,2,107.26,count=2
+2025-11-29T18:53:14.292977,cassandra,100k,cass_find_route_with_stats,3,78.18,count=3
+2025-11-29T18:53:14.399879,cassandra,100k,cass_rank_punctual_airlines,1,90.85,"month=1, no_results"
+2025-11-29T18:53:14.509582,cassandra,100k,cass_rank_punctual_airlines,2,94.65,"month=2, no_results"
+2025-11-29T18:53:14.605730,cassandra,100k,cass_rank_punctual_airlines,3,80.67,"month=3, no_results"
+2025-11-29T18:53:14.628870,cassandra,100k,cass_read_by_carrier_day,1,9.08,found=69
+2025-11-29T18:53:14.650903,cassandra,100k,cass_read_by_carrier_day,2,8.12,found=69
+2025-11-29T18:53:14.672896,cassandra,100k,cass_read_by_carrier_day,3,8.02,found=69
+2025-11-29T18:53:14.811400,cassandra,100k,cass_histogram_arr_delay_month,1,123.5,buckets=9
+2025-11-29T18:53:14.975377,cassandra,100k,cass_histogram_arr_delay_month,2,148.57,buckets=9
+2025-11-29T18:53:15.100235,cassandra,100k,cass_histogram_arr_delay_month,3,109.39,buckets=9
+2025-11-29T18:57:33.704555,mongo,10k,mongo_add_flight,1,1.58,OK
+2025-11-29T18:57:33.706875,mongo,10k,mongo_add_flight_stats,1,1.28,"flight_id=692b421d58d1aaa3e94fde1a, perf_inserted=1, delayed_inserted=1"
+2025-11-29T18:57:33.712600,mongo,10k,mongo_top_routes_month,1,4.91,rows=10
+2025-11-29T18:57:33.723684,mongo,10k,mongo_histogram_arr_delay,1,9.93,buckets=9
+2025-11-29T18:57:33.726124,mongo,10k,mongo_find_route_with_stats,1,1.68,count=0
+2025-11-29T18:57:33.732269,mongo,10k,mongo_rank_punctual_airlines,1,5.38,"month=1, most_punctual=WN"
+2025-11-29T18:57:33.734738,mongo,10k,mongo_read_by_carrier_day,1,1.66,found=4
+2025-11-29T18:57:33.795202,mongo,10k,mongo_insert_batch,1,57.84,inserted=10000
+2025-11-29T18:57:33.844371,mongo,10k,mongo_update_many,1,48.14,"matched=10000, modified=10000"
+2025-11-29T18:57:33.900591,mongo,10k,mongo_delete_many,1,55.15,deleted=10000
+2025-11-29T18:58:12.915945,cassandra,10k,cass_add_flight,1,8.55,OK
+2025-11-29T18:58:12.941392,cassandra,10k,cass_add_flight_stats,1,4.1,"carrier=WN, route=ATL-DFW"
+2025-11-29T18:58:12.999070,cassandra,10k,cass_top_routes_month,1,41.59,rows=10 scanned=766
+2025-11-29T18:58:13.062036,cassandra,10k,cass_histogram_arr_delay,1,44.57,buckets=9
+2025-11-29T18:58:13.089836,cassandra,10k,cass_find_route_with_stats,1,13.55,count=0
+2025-11-29T18:58:13.123365,cassandra,10k,cass_rank_punctual_airlines,1,17.18,"month=1, no_results"
+2025-11-29T18:58:13.151128,cassandra,10k,cass_read_by_carrier_day,1,10.96,found=4
+2025-11-29T18:58:13.253719,cassandra,10k,cass_histogram_arr_delay_month,1,37.96,buckets=9
+2025-11-29T19:03:07.488429,mongo,10k,mongo_add_flight,1,1.51,OK
+2025-11-29T19:03:07.498825,mongo,10k,mongo_add_flight_stats,1,9.6,"flight_id=692b436bdb9607c807e192ea, perf_inserted=1, delayed_inserted=1"
+2025-11-29T19:03:07.503457,mongo,10k,mongo_top_routes_month,1,3.86,rows=10
+2025-11-29T19:03:07.511085,mongo,10k,mongo_histogram_arr_delay,1,6.83,buckets=9
+2025-11-29T19:03:07.513235,mongo,10k,mongo_find_route_with_stats,1,1.52,count=0
+2025-11-29T19:03:07.517280,mongo,10k,mongo_rank_punctual_airlines,1,3.33,"month=1, most_punctual=WN"
+2025-11-29T19:03:07.518816,mongo,10k,mongo_read_by_carrier_day,1,1.01,found=7
+2025-11-29T19:03:07.577913,mongo,10k,mongo_insert_batch,1,57.02,inserted=10000
+2025-11-29T19:03:07.624303,mongo,10k,mongo_update_many,1,45.39,"matched=10000, modified=10000"
+2025-11-29T19:03:07.699343,mongo,10k,mongo_delete_many,1,73.98,deleted=10000
+2025-11-29T19:03:44.225210,cassandra,10k,cass_add_flight,1,6.79,OK
+2025-11-29T19:03:44.249412,cassandra,10k,cass_add_flight_stats,1,4.11,"carrier=WN, route=ATL-DFW"
+2025-11-29T19:03:44.310907,cassandra,10k,cass_top_routes_month,1,34.57,rows=10 scanned=742
+2025-11-29T19:03:44.399850,cassandra,10k,cass_histogram_arr_delay,1,70.52,buckets=9
+2025-11-29T19:03:44.497930,cassandra,10k,cass_find_route_with_stats,1,79.54,count=0
+2025-11-29T19:03:44.589668,cassandra,10k,cass_rank_punctual_airlines,1,9.29,"month=1, no_results"
+2025-11-29T19:03:44.636372,cassandra,10k,cass_read_by_carrier_day,1,13.78,found=7
+2025-11-29T19:03:44.665137,cassandra,10k,cass_histogram_arr_delay_month,1,10.68,buckets=9

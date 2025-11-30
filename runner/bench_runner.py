@@ -2,13 +2,15 @@ import csv
 import yaml
 from pathlib import Path
 
-from bench_cassandra import run_cassandra, reset_cassandra, import_to_cassandra
-from bench_mongo import run_mongo, reset_mongo, import_to_mongo
+from bench_cassandra import run_cassandra, reset_cassandra
+from bench_mongo import run_mongo, reset_mongo
 from bench_mysql import run_mysql, reset_mysql
 from bench_postgres import run_postgres, reset_postgres
 from make_samples import make_samples
+
 from sql_import.import_postgres import import_to_postgres
 from sql_import.import_mysql import import_to_mysql
+from nosql_import import import_to_mongo, import_to_cassandra
 
 RESULTS_PATH = Path("/app/results/results.csv")
 
@@ -22,11 +24,11 @@ def ensure_results_header():
         with open(RESULTS_PATH, "w", newline="") as f:
             csv.writer(f).writerow(["ts", "db", "dataset", "scenario", "repeat", "elapsed_ms", "notes"])
 
-db_runners = {
-    "mongo": run_mongo,
-    "mysql": run_mysql,
-    "postgres": run_postgres,
-    "cassandra": run_cassandra
+db_importers = {
+    "mysql": import_to_mysql,
+    "postgres": import_to_postgres,
+    "mongo": import_to_mongo,
+    "cassandra": import_to_cassandra,
 }
 
 db_importers = {
@@ -41,6 +43,13 @@ db_resetters = {
     "mysql": reset_mysql,
     "postgres": reset_postgres,
     "cassandra": reset_cassandra
+}
+
+db_runners = {
+    "mongo": run_mongo,
+    "mysql": run_mysql,
+    "postgres": run_postgres,
+    "cassandra": run_cassandra,
 }
 
 def prepare_samples(cfg):

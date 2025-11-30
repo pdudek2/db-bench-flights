@@ -1,4 +1,4 @@
-db: [ mysql, postgres, mongo, cassandra ]
+db: [ mongo, cassandra ]
 samples:
   src_file: /data/raw/flight_data_2024.csv
   dst_dir: /data/processed
